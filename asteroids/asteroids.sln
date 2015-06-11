@@ -1,0 +1,51 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.22823.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "asteroids", "asteroids", "{E459C87F-664E-4653-ACF9-0EADB3BE2B16}"
+EndProject
+Project("{39E2626F-3545-4960-A6E8-258AD8476CE5}") = "asteroids.Android.Packaging", "asteroids\asteroids.Android.Packaging\asteroids.Android.Packaging.androidproj", "{2742695A-9829-40DC-86E3-B84CF88833CF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libraries", "Libraries", "{8B2BC836-ACCC-4306-9239-0B00DB5202A0}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "asteroids.Android.NativeActivity", "asteroids\asteroids.Android.NativeActivity\asteroids.Android.NativeActivity.vcxproj", "{416CD8F7-A18C-4B2E-BFCA-F031CF581C15}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|ARM = Debug|ARM
+		Debug|x86 = Debug|x86
+		Release|ARM = Release|ARM
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2742695A-9829-40DC-86E3-B84CF88833CF}.Debug|ARM.ActiveCfg = Debug|ARM
+		{2742695A-9829-40DC-86E3-B84CF88833CF}.Debug|ARM.Build.0 = Debug|ARM
+		{2742695A-9829-40DC-86E3-B84CF88833CF}.Debug|ARM.Deploy.0 = Debug|ARM
+		{2742695A-9829-40DC-86E3-B84CF88833CF}.Debug|x86.ActiveCfg = Debug|x86
+		{2742695A-9829-40DC-86E3-B84CF88833CF}.Debug|x86.Build.0 = Debug|x86
+		{2742695A-9829-40DC-86E3-B84CF88833CF}.Debug|x86.Deploy.0 = Debug|x86
+		{2742695A-9829-40DC-86E3-B84CF88833CF}.Release|ARM.ActiveCfg = Release|ARM
+		{2742695A-9829-40DC-86E3-B84CF88833CF}.Release|ARM.Build.0 = Release|ARM
+		{2742695A-9829-40DC-86E3-B84CF88833CF}.Release|ARM.Deploy.0 = Release|ARM
+		{2742695A-9829-40DC-86E3-B84CF88833CF}.Release|x86.ActiveCfg = Release|x86
+		{2742695A-9829-40DC-86E3-B84CF88833CF}.Release|x86.Build.0 = Release|x86
+		{2742695A-9829-40DC-86E3-B84CF88833CF}.Release|x86.Deploy.0 = Release|x86
+		{416CD8F7-A18C-4B2E-BFCA-F031CF581C15}.Debug|ARM.ActiveCfg = Debug|ARM
+		{416CD8F7-A18C-4B2E-BFCA-F031CF581C15}.Debug|ARM.Build.0 = Debug|ARM
+		{416CD8F7-A18C-4B2E-BFCA-F031CF581C15}.Debug|x86.ActiveCfg = Debug|x86
+		{416CD8F7-A18C-4B2E-BFCA-F031CF581C15}.Debug|x86.Build.0 = Debug|x86
+		{416CD8F7-A18C-4B2E-BFCA-F031CF581C15}.Release|ARM.ActiveCfg = Release|ARM
+		{416CD8F7-A18C-4B2E-BFCA-F031CF581C15}.Release|ARM.Build.0 = Release|ARM
+		{416CD8F7-A18C-4B2E-BFCA-F031CF581C15}.Release|x86.ActiveCfg = Release|x86
+		{416CD8F7-A18C-4B2E-BFCA-F031CF581C15}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{2742695A-9829-40DC-86E3-B84CF88833CF} = {E459C87F-664E-4653-ACF9-0EADB3BE2B16}
+		{8B2BC836-ACCC-4306-9239-0B00DB5202A0} = {E459C87F-664E-4653-ACF9-0EADB3BE2B16}
+		{416CD8F7-A18C-4B2E-BFCA-F031CF581C15} = {8B2BC836-ACCC-4306-9239-0B00DB5202A0}
+	EndGlobalSection
+EndGlobal
