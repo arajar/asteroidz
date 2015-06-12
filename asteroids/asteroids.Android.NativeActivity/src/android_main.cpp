@@ -15,10 +15,11 @@
 *
 */
 
-#include "Cube.h"
+//#include "Cube.h"
+#include "framework/vec2.h"
 
-#define LOGI(...) ((void)__android_log_print(ANDROID_LOG_INFO, "AndroidProject1.NativeActivity", __VA_ARGS__))
-#define LOGW(...) ((void)__android_log_print(ANDROID_LOG_WARN, "AndroidProject1.NativeActivity", __VA_ARGS__))
+#define LOGI(...) ((void)__android_log_print(ANDROID_LOG_INFO, "asteroids.NativeActivity", __VA_ARGS__))
+#define LOGW(...) ((void)__android_log_print(ANDROID_LOG_WARN, "asteroids.NativeActivity", __VA_ARGS__))
 
 /**
 * Our saved state data.
@@ -114,7 +115,7 @@ static int engine_init_display(struct engine* engine)
 	engine->state.angle = 0;
 
 	// Initialize GL state.
-	Cube_setupGL(w, h);
+	//Cube_setupGL(w, h);
 
 	return 0;
 }
@@ -131,9 +132,9 @@ static void engine_draw_frame(struct engine* engine)
 		return;
 	}
 
-	Cube_prepare();
+	//Cube_prepare();
 
-	Cube_draw();
+	//Cube_draw();
 
 	eglSwapBuffers(engine->display, engine->surface);
 }
@@ -166,7 +167,7 @@ static void engine_term_display(struct engine* engine)
 	engine->context = EGL_NO_CONTEXT;
 	engine->surface = EGL_NO_SURFACE;
 
-	Cube_tearDownGL();
+	//Cube_tearDownGL();
 }
 
 /**
@@ -309,7 +310,8 @@ void android_main(struct android_app* state)
 		if (engine.animating)
 		{
 			// Done with events; draw next animation frame.
-			Cube_update();
+			glClearColor(0.2f, 0.2f, 0.2f, 0.0f);
+			glClear(GL_COLOR_BUFFER_BIT);
 			//if (engine.state.angle > 1)
 			//{
 			//	engine.state.angle = 0;
