@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 14.0.22823.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "asteroids", "asteroids", "{E459C87F-664E-4653-ACF9-0EADB3BE2B16}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
 EndProject
 Project("{39E2626F-3545-4960-A6E8-258AD8476CE5}") = "packaging", "asteroids\asteroids.Android.Packaging\packaging.androidproj", "{2742695A-9829-40DC-86E3-B84CF88833CF}"
 EndProject
