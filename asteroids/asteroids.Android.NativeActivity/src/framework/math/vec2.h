@@ -1,5 +1,7 @@
 #pragma once
 
+//////////////////////////////////////////////////////////////////////////
+
 namespace math
 {
 	template<typename T>
@@ -23,6 +25,16 @@ namespace math
 		inline const float dot(const vec2<T> other) const
 		{
 			return x * other.x + y * other.y;
+		}
+
+		inline const float length()
+		{
+			return sqrtf(x*x + y*y);
+		}
+
+		inline const float length2()
+		{
+			return x*x + y*y;
 		}
 
 		inline vec2<T>& operator+=(const T& other)
@@ -122,6 +134,6 @@ namespace math
 		}
 	};
 
-	using vec2d = vec2<int>;
+	using vec2d = vec2<GLint>;
 	using vec2f = vec2<GLfloat>;
 }
