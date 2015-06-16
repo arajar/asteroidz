@@ -2,138 +2,68 @@
 
 //////////////////////////////////////////////////////////////////////////
 
-namespace math
+namespace m
 {
 	template<typename T>
-	struct vec2
+	struct vec2_type
 	{
 		union
 		{
-			T value_[2];
-			struct
-			{
-				T x;
-				T y;
-			};
+			T xy[2];
+			T uv[2];
+			T rg[2];
+			struct { T x; T y; };
+			struct { T u; T v; };
+			struct { T r; T g; };
 		};
 
-		vec2() : value_{ 0 } {}
-		vec2(T value) : value_{ value } {}
-		vec2(T x, T y) : value_{ x, y } {}
+		vec2_type() : x(), y() {}
+		vec2_type(T value) : x(value), y(value) {}
+		vec2_type(T x, T y) : x(x), y(y) {}
+		vec2_type(const vec2_type<T>& other) : x(other.x), y(other.y) {}
 
-		inline T* ptr() { return value_; }
-		inline const float dot(const vec2<T> other) const
-		{
-			return x * other.x + y * other.y;
-		}
+		vec2_type<T> operator+() const { return vec2_type<T>(+x, +y); }
+		vec2_type<T> operator-() const { return vec2_type<T>(-x, -y); }
 
-		inline const float length()
-		{
-			return sqrtf(x*x + y*y);
-		}
+		vec2_type<T> operator+(const vec2_type<T>& other) const { return vec2_type<T>(x + other.x, y + other.y); }
+		vec2_type<T> operator-(const vec2_type<T>& other) const { return vec2_type<T>(x - other.x, y - other.y); }
+		vec2_type<T> operator*(const vec2_type<T>& other) const { return vec2_type<T>(x*other.x, y*other.y); }
+		vec2_type<T> operator/(const vec2_type<T>& other) const { return vec2_type<T>(x / other.x, y / other.y); }
+		vec2_type<T> operator+(T other) const { return vec2_type<T>(x + other, y + other); }
+		vec2_type<T> operator-(T other) const { return vec2_type<T>(x - other, y - other); }
+		vec2_type<T> operator*(T other) const { return vec2_type<T>(x*other, y*other); }
+		vec2_type<T> operator/(T other) const { return vec2_type<T>(x / other, y / other); }
 
-		inline const float length2()
-		{
-			return x*x + y*y;
-		}
+		friend vec2_type<T> operator+(float s, const vec2_type<T>& vec) { return vec2_type<T>(s + vec.x, s + vec.y); }
+		friend vec2_type<T> operator-(float s, const vec2_type<T>& vec) { return vec2_type<T>(s - vec.x, s - vec.y); }
+		friend vec2_type<T> operator*(float s, const vec2_type<T>& vec) { return vec2_type<T>(s * vec.x, s * vec.y); }
+		friend vec2_type<T> operator/(float s, const vec2_type<T>& vec) { return vec2_type<T>(s / vec.x, s / vec.y); }
 
-		inline vec2<T>& operator+=(const T& other)
-		{
-			x += other;
-			y += other;
-			return *this;
-		}
+		vec2_type<T>& operator+=(const vec2_type<T>& other) { return *this = *this + other; }
+		vec2_type<T>& operator-=(const vec2_type<T>& other) { return *this = *this - other; }
+		vec2_type<T>& operator*=(const vec2_type<T>& other) { return *this = *this * other; }
+		vec2_type<T>& operator/=(const vec2_type<T>& other) { return *this = *this / other; }
+		vec2_type<T>& operator+=(T other) { return *this = *this + other; }
+		vec2_type<T>& operator-=(T other) { return *this = *this - other; }
+		vec2_type<T>& operator*=(T other) { return *this = *this * other; }
+		vec2_type<T>& operator/=(T other) { return *this = *this / other; }
 
-		inline vec2<T>& operator+=(const vec2<T>& other)
-		{
-			x += other.x;
-			y += other.y;
-			return *this;
-		}
+		bool operator==(const vec2_type<T>& other) const { return x == other.x && y == other.y; }
+		bool operator!=(const vec2_type<T>& other) const { return x != other.x || y != other.y; }
 
-		inline const vec2<T> operator+(const T& other) const
-		{
-			return vec2<T>(x + other, y + other);
-		}
+		friend float length(const vec2_type<T> &v) { return sqrtf(v.x * v.x + v.y * v.y); }
+		friend float dot(const vec2_type<T> &a, const vec2_type<T> &b) { return a.x * b.x + a.y * b.y; }
+		friend float max(const vec2_type<T> &v) { return fmaxf(v.x, v.y); }
+		friend float min(const vec2_type<T> &v) { return fminf(v.x, v.y); }
+		friend vec2_type<T> max(const vec2_type<T> &a, const vec2_type<T> &b) { return vec2_type<T>(fmaxf(a.x, b.x), fmaxf(a.y, b.y)); }
+		friend vec2_type<T> min(const vec2_type<T> &a, const vec2_type<T> &b) { return vec2_type<T>(fminf(a.x, b.x), fminf(a.y, b.y)); }
+		friend vec2_type<T> floor(const vec2_type<T> &v) { return vec2_type<T>(floorf(v.x), floorf(v.y)); }
+		friend vec2_type<T> ceil(const vec2_type<T> &v) { return vec2_type<T>(ceilf(v.x), ceilf(v.y)); }
+		friend vec2_type<T> abs(const vec2_type<T> &v) { return vec2_type<T>(fabsf(v.x), fabsf(v.y)); }
+		friend vec2_type<T> fract(const vec2_type<T> &v) { return v - floor(v); }
+		friend vec2_type<T> normalized(const vec2_type<T> &v) { return v / length(v); }
 
-		inline const vec2<T> operator+(const vec2<T>& other) const
-		{
-			return vec2<T>(x + other.x, y + other.y);
-		}
-
-		inline vec2<T>& operator-=(const T& other)
-		{
-			x -= other;
-			y -= other;
-			return *this;
-		}
-
-		inline vec2<T>& operator-=(const vec2<T>& other)
-		{
-			x -= other.x;
-			y -= other.y;
-			return *this;
-		}
-
-		inline const vec2<T> operator-(const T& other) const
-		{
-			return vec2<T>(x - other, y - other);
-		}
-
-		inline const vec2<T> operator-(const vec2<T>& other) const
-		{
-			return vec2<T>(x - other.x, y - other.y);
-		}
-
-		inline vec2<T>& operator*=(const T& other)
-		{
-			x *= other;
-			y *= other;
-			return *this;
-		}
-
-		inline vec2<T>& operator*=(const vec2<T>& other)
-		{
-			x *= other.x;
-			y *= other.y;
-			return *this;
-		}
-
-		inline const vec2<T> operator*(const T& other) const
-		{
-			return vec2<T>(x * other, y * other);
-		}
-
-		inline const vec2<T> operator*(const vec2<T>& other) const
-		{
-			return vec2<T>(x * other.x, y * other.y);
-		}
-
-		inline vec2<T>& operator/=(const T& other)
-		{
-			x /= other;
-			y /= other;
-			return *this;
-		}
-
-		inline vec2<T>& operator/=(const vec2<T>& other)
-		{
-			x /= other.x;
-			y /= other.y;
-			return *this;
-		}
-
-		inline const vec2<T> operator/(const T& other) const
-		{
-			return vec2<T>(x / other, y / other);
-		}
-
-		inline const vec2<T> operator/(const vec2<T>& other) const
-		{
-			return vec2<T>(x / other.x, y / other.y);
-		}
 	};
 
-	using vec2d = vec2<GLint>;
-	using vec2f = vec2<GLfloat>;
+	using vec2 = vec2_type<GLfloat>;
 }

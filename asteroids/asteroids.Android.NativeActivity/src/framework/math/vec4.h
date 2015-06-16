@@ -2,161 +2,66 @@
 
 //////////////////////////////////////////////////////////////////////////
 
-namespace math
+namespace m
 {
 	template<typename T>
-	struct vec4
+	struct vec4_type
 	{
 		union
 		{
-			T value_[4];
-			struct
-			{
-				T x;
-				T y;
-				T z;
-				T w;
-			};
+			T xyzw[4];
+			T rgba[4];
+			struct { T x; T y; T z; T w; };
+			struct { T r; T g; T b; T a; };
 		};
 
-		vec4() : value_{ 0 } {}
-		vec4(T value) : value_{ value } {}
-		vec4(T x, T y, T z, T w) : value_{ x, y, z, w } {}
+		vec4_type() : x(), y(), z(), w() {}
+		vec4_type(T value) : x(value), y(value), z(value), w(value) {}
+		vec4_type(T x, T y, T z) : x(x), y(y), z(z), w(w) {}
+		vec4_type(const vec4_type<T>& other) : x(other.x), y(other.y), z(other.z), w(other.w) {}
 
-		T& operator[](int index)
-		{
-			return value_[index];
-		}
+		vec4_type<T> operator+() const { return vec4_type<T>(+x, +y, +z, +w); }
+		vec4_type<T> operator-() const { return vec4_type<T>(-x, -y, -z, -w); }
 
-		inline T* ptr() { return value_; }
-		inline const float dot(const vec4<T> other) const
-		{
-			return x * other.x + y * other.y + z * other.z + w * other.w;
-		}
+		vec4_type<T> operator+(const vec4_type<T>& other) const { return vec4_type<T>(x + other.x, y + other.y, z + other.z, w + other.w); }
+		vec4_type<T> operator-(const vec4_type<T>& other) const { return vec4_type<T>(x - other.x, y - other.y, z - other.z, w - other.w); }
+		vec4_type<T> operator*(const vec4_type<T>& other) const { return vec4_type<T>(x*other.x, y*other.y, z*other.z, w*other.w); }
+		vec4_type<T> operator/(const vec4_type<T>& other) const { return vec4_type<T>(x / other.x, y / other.y, z / other.z, w / other.w); }
+		vec4_type<T> operator+(T other) const { return vec4_type<T>(x + other, y + other, z + other, w + other); }
+		vec4_type<T> operator-(T other) const { return vec4_type<T>(x - other, y - other, z - other, w - other); }
+		vec4_type<T> operator*(T other) const { return vec4_type<T>(x*other, y*other, z*other, w*other); }
+		vec4_type<T> operator/(T other) const { return vec4_type<T>(x / other, y / other, z / other, w / other); }
 
-		inline const float length()
-		{
-			return sqrtf(x*x + y*y + z*z + w*w);
-		}
+		friend vec4_type<T> operator+(float s, const vec4_type<T>& vec) { return vec4_type<T>(s + vec.x, s + vec.y, s + vec.z, s + vec.w); }
+		friend vec4_type<T> operator-(float s, const vec4_type<T>& vec) { return vec4_type<T>(s - vec.x, s - vec.y, s - vec.z, s - vec.w); }
+		friend vec4_type<T> operator*(float s, const vec4_type<T>& vec) { return vec4_type<T>(s * vec.x, s * vec.y, s * vec.z, s * vec.w); }
+		friend vec4_type<T> operator/(float s, const vec4_type<T>& vec) { return vec4_type<T>(s / vec.x, s / vec.y, s / vec.z, s / vec.w); }
 
-		inline const float length2()
-		{
-			return x*x + y*y + z*z + w*w;
-		}
+		vec4_type<T>& operator+=(const vec4_type<T>& other) { return *this = *this + other; }
+		vec4_type<T>& operator-=(const vec4_type<T>& other) { return *this = *this - other; }
+		vec4_type<T>& operator*=(const vec4_type<T>& other) { return *this = *this * other; }
+		vec4_type<T>& operator/=(const vec4_type<T>& other) { return *this = *this / other; }
+		vec4_type<T>& operator+=(T other) { return *this = *this + other; }
+		vec4_type<T>& operator-=(T other) { return *this = *this - other; }
+		vec4_type<T>& operator*=(T other) { return *this = *this * other; }
+		vec4_type<T>& operator/=(T other) { return *this = *this / other; }
 
-		inline vec4<T>& operator+=(const T& other)
-		{
-			x += other;
-			y += other;
-			z += other;
-			w += other;
-			return *this;
-		}
+		bool operator==(const vec4_type<T>& other) const { return x == other.x && y == other.y && z == other.z && w == other.w; }
+		bool operator!=(const vec4_type<T>& other) const { return x != other.x || y != other.y || z != other.z || w != other.w; }
 
-		inline vec4<T>& operator+=(const vec4<T>& other)
-		{
-			x += other.x;
-			y += other.y;
-			z += other.z;
-			w += other.w;
-			return *this;
-		}
+		friend float length(const vec4_type<T> &v) { return sqrtf(v.x * v.x + v.y * v.y + v.z * v.z + v.w * v.w); }
+		friend float dot(const vec4_type<T> &a, const vec4_type<T> &b) { return a.x * b.x + a.y * b.y + a.z * b.z + a.w * b.w; }
+		friend float max(const vec4_type<T> &v) { return fmaxf(fmaxf(v.x, v.y), fmaxf(v.z, v.w)); }
+		friend float min(const vec4_type<T> &v) { return fminf(fminf(v.x, v.y), fminf(v.z, v.w)); }
+		friend vec4_type<T> max(const vec4_type<T> &a, const vec4_type<T> &b) { return vec4_type<T>(fmaxf(a.x, b.x), fmaxf(a.y, b.y), fmaxf(a.z, b.z), fmaxf(a.w, b.w)); }
+		friend vec4_type<T> min(const vec4_type<T> &a, const vec4_type<T> &b) { return vec4_type<T>(fminf(a.x, b.x), fminf(a.y, b.y), fminf(a.z, b.z), fminf(a.w, b.w)); }
+		friend vec4_type<T> floor(const vec4_type<T> &v) { return vec4_type<T>(floorf(v.x), floorf(v.y), floorf(v.z), floorf(v.w)); }
+		friend vec4_type<T> ceil(const vec4_type<T> &v) { return vec4_type<T>(ceilf(v.x), ceilf(v.y), ceilf(v.z), ceilf(v.w)); }
+		friend vec4_type<T> abs(const vec4_type<T> &v) { return vec4_type<T>(fabsf(v.x), fabsf(v.y), fabsf(v.z), fabsf(v.w)); }
+		friend vec4_type<T> fract(const vec4_type<T> &v) { return v - floor(v); }
+		friend vec4_type<T> normalized(const vec4_type<T> &v) { return v / length(v); }
 
-		inline const vec4<T> operator+(const T& other) const
-		{
-			return vec4<T>(x + other, y + other, z + other, w + other);
-		}
-
-		inline const vec4<T> operator+(const vec4<T>& other) const
-		{
-			return vec4<T>(x + other.x, y + other.y, z + other.z, w + other.w);
-		}
-
-		inline vec4<T>& operator-=(const T& other)
-		{
-			x -= other;
-			y -= other;
-			z -= other;
-			w -= other;
-			return *this;
-		}
-
-		inline vec4<T>& operator-=(const vec4<T>& other)
-		{
-			x -= other.x;
-			y -= other.y;
-			z -= other.z;
-			w -= other.w;
-			return *this;
-		}
-
-		inline const vec4<T> operator-(const T& other) const
-		{
-			return vec4<T>(x - other, y - other, z - other), w - other;
-		}
-
-		inline const vec4<T> operator-(const vec4<T>& other) const
-		{
-			return vec4<T>(x - other.x, y - other.y, z - other.z, w - other.w);
-		}
-
-		inline vec4<T>& operator*=(const T& other)
-		{
-			x *= other;
-			y *= other;
-			z *= other;
-			w *= other;
-			return *this;
-		}
-
-		inline vec4<T>& operator*=(const vec4<T>& other)
-		{
-			x *= other.x;
-			y *= other.y;
-			z *= other.z;
-			w *= other.w;
-			return *this;
-		}
-
-		inline const vec4<T> operator*(const T& other) const
-		{
-			return vec4<T>(x * other, y * other, z * other, w * other);
-		}
-
-		inline const vec4<T> operator*(const vec4<T>& other) const
-		{
-			return vec4<T>(x * other.x, y * other.y, z * other.z, w * other.w);
-		}
-
-		inline vec4<T>& operator/=(const T& other)
-		{
-			x /= other;
-			y /= other;
-			z /= other;
-			w /= other;
-			return *this;
-		}
-
-		inline vec4<T>& operator/=(const vec4<T>& other)
-		{
-			x /= other.x;
-			y /= other.y;
-			z /= other.z;
-			w /= other.w;
-			return *this;
-		}
-
-		inline const vec4<T> operator/(const T& other) const
-		{
-			return vec4<T>(x / other, y / other, z / other, w / other);
-		}
-
-		inline const vec4<T> operator/(const vec4<T>& other) const
-		{
-			return vec4<T>(x / other.x, y / other.y, z / other.z, w / other.w);
-		}
 	};
 
-	using vec4d = vec4<GLint>;
-	using vec4f = vec4<GLfloat>;
+	using vec4 = vec4_type<GLfloat>;
 }
