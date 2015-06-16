@@ -7,8 +7,19 @@ namespace m
 	{
 		vec4_type<T> val[4];
 
-		mat4_type() {}
-		mat4_type(const vec4_type<T>& r0, const vec4_type<T>& r1, const vec4_type<T>& r2, const vec4_type<T>& r3) { val[0] = r0; val[1] = r1; val[2] = r2; val[3] = r3; }
+		mat4_type()
+		{
+			val[0] = vec4_type<T>(1, 0, 0, 0);
+			val[1] = vec4_type<T>(0, 1, 0, 0);
+			val[2] = vec4_type<T>(0, 0, 1, 0);
+			val[3] = vec4_type<T>(0, 0, 0, 1);
+		}
+
+		mat4_type(T s) { val[0] = s; val[1] = s, val[2] = s; val[3] = s; }
+		mat4_type(const vec4_type<T>& r0, const vec4_type<T>& r1, const vec4_type<T>& r2, const vec4_type<T>& r3)
+		{
+			val[0] = r0; val[1] = r1; val[2] = r2; val[3] = r3;
+		}
 
 		mat4_type(
 			T m00, T m01, T m02, T m03,
@@ -88,6 +99,22 @@ namespace m
 			val[2] /= s;
 			val[3] /= s;
 			return *this;
+		}
+
+		friend vec4_type<T> operator*(const mat4_type<T>& m, const vec4_type<T>& v)
+		{
+			const vec4_type<T> Mov0(v[0]);
+			const vec4_type<T> Mov1(v[1]);
+			const vec4_type<T> Mul0 = m[0] * Mov0;
+			const vec4_type<T> Mul1 = m[1] * Mov1;
+			const vec4_type<T> Add0 = Mul0 + Mul1;
+			const vec4_type<T> Mov2(v[2]);
+			const vec4_type<T> Mov3(v[3]);
+			const vec4_type<T> Mul2 = m[2] * Mov2;
+			const vec4_type<T> Mul3 = m[3] * Mov3;
+			const vec4_type<T> Add1 = Mul2 + Mul3;
+			const vec4_type<T> Add2 = Add0 + Add1;
+			return Add2;
 		}
 
 		friend mat4_type<T> operator+(const mat4_type<T>& m, T s) { return mat4_type<T>(m[0] + s, m[1] + s, m[2] + s, m[3] + s); }
@@ -180,7 +207,7 @@ namespace m
 
 		static mat4_type<T> translate(const mat4_type<T>& m, const vec3_type<T>& v)
 		{
-			mat4_type<T> res(m);
+			mat4_type<T> res = m;
 			res[3] = m[0] * v[0] + m[1] * v[1] + m[2] * v[2] + m[3];
 			return res;
 		}
@@ -240,5 +267,3 @@ namespace m
 
 	using mat4 = mat4_type<GLfloat>;
 }
-
-#include "mat4x4.inl"

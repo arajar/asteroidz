@@ -15,8 +15,14 @@
 #include "android_native_app_glue.h"
 #include <android/asset_manager.h>
 
+//#include "framework/glm/glm/glm.hpp"
+//#include "framework/glm/glm/gtc/type_ptr.hpp"
+//#include "framework/glm/glm/gtc/matrix_transform.hpp"
+//#include "framework/glm/glm/gtc/quaternion.hpp"
+//#include "framework/glm/glm/gtx/quaternion.hpp"
 #include "framework/math/math.h"
 
+#include "framework/graphics/camera.h"
 #include "framework/graphics/vertex.h"
 
 #include "framework/util/file_utils.h"

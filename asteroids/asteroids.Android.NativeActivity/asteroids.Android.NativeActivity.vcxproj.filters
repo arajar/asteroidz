@@ -21,6 +21,7 @@
     <ClCompile Include="src\game\states\state_menu.cpp">
       <Filter>game\states</Filter>
     </ClCompile>
+    <ClCompile Include="src\framework\graphics\camera.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\android_native_app_glue.h" />
@@ -64,14 +65,20 @@
     <ClInclude Include="src\framework\graphics\vertex.h">
       <Filter>framework\graphics</Filter>
     </ClInclude>
-    <ClInclude Include="src\framework\math\mat4.h">
-      <Filter>framework\math</Filter>
-    </ClInclude>
     <ClInclude Include="src\framework\math\vec4.h">
       <Filter>framework\math</Filter>
     </ClInclude>
     <ClInclude Include="src\framework\math\math.h">
       <Filter>framework\math</Filter>
+    </ClInclude>
+    <ClInclude Include="src\framework\math\func.h">
+      <Filter>framework\math</Filter>
+    </ClInclude>
+    <ClInclude Include="src\framework\math\mat4x4.h">
+      <Filter>framework\math</Filter>
+    </ClInclude>
+    <ClInclude Include="src\framework\graphics\camera.h">
+      <Filter>framework\graphics</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -102,5 +109,10 @@
     <Filter Include="game\states">
       <UniqueIdentifier>{08a7d0eb-f704-4d16-ada4-7fc2341a60a5}</UniqueIdentifier>
     </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="src\framework\math\func.inl">
+      <Filter>framework\math</Filter>
+    </None>
   </ItemGroup>
 </Project>

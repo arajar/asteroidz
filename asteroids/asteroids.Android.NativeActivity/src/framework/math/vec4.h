@@ -9,16 +9,17 @@ namespace m
 	{
 		union
 		{
-			T xyzw[4];
-			T rgba[4];
 			struct { T x; T y; T z; T w; };
 			struct { T r; T g; T b; T a; };
 		};
 
 		vec4_type() : x(), y(), z(), w() {}
 		vec4_type(T value) : x(value), y(value), z(value), w(value) {}
-		vec4_type(T x, T y, T z) : x(x), y(y), z(z), w(w) {}
+		vec4_type(T x, T y, T z, T w) : x(x), y(y), z(z), w(w) {}
 		vec4_type(const vec4_type<T>& other) : x(other.x), y(other.y), z(other.z), w(other.w) {}
+
+		T& operator[](int i) { return (&x)[i]; }
+		const T& operator[](int i) const { return (&x)[i]; }
 
 		vec4_type<T> operator+() const { return vec4_type<T>(+x, +y, +z, +w); }
 		vec4_type<T> operator-() const { return vec4_type<T>(-x, -y, -z, -w); }
@@ -27,15 +28,15 @@ namespace m
 		vec4_type<T> operator-(const vec4_type<T>& other) const { return vec4_type<T>(x - other.x, y - other.y, z - other.z, w - other.w); }
 		vec4_type<T> operator*(const vec4_type<T>& other) const { return vec4_type<T>(x*other.x, y*other.y, z*other.z, w*other.w); }
 		vec4_type<T> operator/(const vec4_type<T>& other) const { return vec4_type<T>(x / other.x, y / other.y, z / other.z, w / other.w); }
-		vec4_type<T> operator+(T other) const { return vec4_type<T>(x + other, y + other, z + other, w + other); }
-		vec4_type<T> operator-(T other) const { return vec4_type<T>(x - other, y - other, z - other, w - other); }
-		vec4_type<T> operator*(T other) const { return vec4_type<T>(x*other, y*other, z*other, w*other); }
-		vec4_type<T> operator/(T other) const { return vec4_type<T>(x / other, y / other, z / other, w / other); }
 
 		friend vec4_type<T> operator+(float s, const vec4_type<T>& vec) { return vec4_type<T>(s + vec.x, s + vec.y, s + vec.z, s + vec.w); }
 		friend vec4_type<T> operator-(float s, const vec4_type<T>& vec) { return vec4_type<T>(s - vec.x, s - vec.y, s - vec.z, s - vec.w); }
 		friend vec4_type<T> operator*(float s, const vec4_type<T>& vec) { return vec4_type<T>(s * vec.x, s * vec.y, s * vec.z, s * vec.w); }
 		friend vec4_type<T> operator/(float s, const vec4_type<T>& vec) { return vec4_type<T>(s / vec.x, s / vec.y, s / vec.z, s / vec.w); }
+		friend vec4_type<T> operator+(const vec4_type<T>& vec, float s) { return vec4_type<T>(s + vec.x, s + vec.y, s + vec.z, s + vec.w); }
+		friend vec4_type<T> operator-(const vec4_type<T>& vec, float s) { return vec4_type<T>(vec.x - s, vec.y - s, vec.z - s, vec.w - s); }
+		friend vec4_type<T> operator*(const vec4_type<T>& vec, float s) { return vec4_type<T>(s * vec.x, s * vec.y, s * vec.z, s * vec.w); }
+		friend vec4_type<T> operator/(const vec4_type<T>& vec, float s) { return vec4_type<T>(vec.x / s, vec.y / s, vec.z / s, vec.w / s); }
 
 		vec4_type<T>& operator+=(const vec4_type<T>& other) { return *this = *this + other; }
 		vec4_type<T>& operator-=(const vec4_type<T>& other) { return *this = *this - other; }

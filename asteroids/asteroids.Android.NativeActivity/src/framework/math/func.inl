@@ -10,12 +10,12 @@ namespace m
 	template<typename T>
 	inline T toDeg(T angle)
 	{
-		return (angle * (static_cast<T>(180)) / pi<T>);
+		return (angle * (static_cast<T>(180)) / pi<T>());
 	}
 	
 	template<typename T>
 	inline T toRad(T angle)
 	{
-		return angle * (pi<T> / static_cast<T>(180));
+		return angle * (pi<T>() / static_cast<T>(180));
 	}
 }
