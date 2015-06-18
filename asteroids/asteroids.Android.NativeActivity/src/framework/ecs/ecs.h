@@ -66,7 +66,7 @@ namespace ecs
 			for (auto& s : m_systems)
 			{
 				// this will call the render function of the system
-				s;
+				(*s)();
 			}
 		}
 
@@ -120,7 +120,7 @@ namespace ecs
 				auto cc = dynamic_cast<c*>(comp);
 				if (cc)
 				{
-					m_entities[id].erase();
+					m_entities[id].erase(cc);
 					delete cc;
 					return true;
 				}

@@ -35,7 +35,7 @@
     <ClInclude Include="src\framework\graphics\camera.h" />
     <ClInclude Include="src\framework\graphics\vertex.h" />
     <ClInclude Include="src\framework\math\func.h" />
-    <ClInclude Include="src\framework\math\mat4x4.h" />
+    <ClInclude Include="src\framework\math\mat4.h" />
     <ClInclude Include="src\framework\math\math.h" />
     <ClInclude Include="src\framework\math\vec4.h" />
     <ClInclude Include="src\framework\util\file_utils.h" />
@@ -45,6 +45,8 @@
     <ClInclude Include="src\framework\math\vec2.h" />
     <ClInclude Include="src\framework\math\vec3.h" />
     <ClInclude Include="src\framework\input\virtual_joystick.h" />
+    <ClInclude Include="src\game\entities\entity.h" />
+    <ClInclude Include="src\game\entities\movementSystem.h" />
     <ClInclude Include="src\game\game.h" />
     <ClInclude Include="src\game\states\state_dead.h" />
     <ClInclude Include="src\game\states\state_gameplay.h" />
@@ -53,6 +55,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="src\framework\math\func.inl" />
+    <None Include="src\framework\math\mat4.inl" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{416cd8f7-a18c-4b2e-bfca-f031cf581c15}</ProjectGuid>
@@ -69,12 +72,12 @@
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <UseOfStl>c++_static</UseOfStl>
-    <AndroidAPILevel>android-21</AndroidAPILevel>
+    <AndroidAPILevel>android-19</AndroidAPILevel>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <AndroidAPILevel>android-21</AndroidAPILevel>
+    <AndroidAPILevel>android-19</AndroidAPILevel>
     <UseOfStl>c++_static</UseOfStl>
     <ThumbMode>Thumb</ThumbMode>
   </PropertyGroup>
@@ -82,12 +85,12 @@
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <UseOfStl>c++_static</UseOfStl>
-    <AndroidAPILevel>android-21</AndroidAPILevel>
+    <AndroidAPILevel>android-19</AndroidAPILevel>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <AndroidAPILevel>android-21</AndroidAPILevel>
+    <AndroidAPILevel>android-19</AndroidAPILevel>
     <UseOfStl>c++_static</UseOfStl>
     <ThumbMode>Disabled</ThumbMode>
     <PlatformToolset>Clang_3_4</PlatformToolset>
@@ -108,9 +111,11 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
+    <IncludePath>$(NDKRoot)/sources/android/support/include;$(IncludePath)</IncludePath>
+  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">
-    <IncludePath>E:\GitHub\asteroids\libs\glm\glm;$(IncludePath)</IncludePath>
+    <IncludePath>$(NDKRoot)/sources/android/support/include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x86'" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x86'" />

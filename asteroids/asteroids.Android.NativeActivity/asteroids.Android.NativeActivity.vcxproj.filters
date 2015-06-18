@@ -74,11 +74,17 @@
     <ClInclude Include="src\framework\math\func.h">
       <Filter>framework\math</Filter>
     </ClInclude>
-    <ClInclude Include="src\framework\math\mat4x4.h">
-      <Filter>framework\math</Filter>
-    </ClInclude>
     <ClInclude Include="src\framework\graphics\camera.h">
       <Filter>framework\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\framework\math\mat4.h">
+      <Filter>framework\math</Filter>
+    </ClInclude>
+    <ClInclude Include="src\game\entities\entity.h">
+      <Filter>game\entities</Filter>
+    </ClInclude>
+    <ClInclude Include="src\game\entities\movementSystem.h">
+      <Filter>game\entities</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -109,9 +115,15 @@
     <Filter Include="game\states">
       <UniqueIdentifier>{08a7d0eb-f704-4d16-ada4-7fc2341a60a5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="game\entities">
+      <UniqueIdentifier>{269c8403-45ec-4c86-8463-0ca8c2298f10}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\framework\math\func.inl">
+      <Filter>framework\math</Filter>
+    </None>
+    <None Include="src\framework\math\mat4.inl">
       <Filter>framework\math</Filter>
     </None>
   </ItemGroup>
