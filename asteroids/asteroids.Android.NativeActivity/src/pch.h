@@ -15,12 +15,8 @@
 #include "android_native_app_glue.h"
 #include <android/asset_manager.h>
 
-#include "framework/math/math.h"
-
-#include "framework/graphics/camera.h"
-#include "framework/graphics/vertex.h"
-
-#include "framework/util/file_utils.h"
-
 #include "framework/states/state_manager.h"
+#include "framework/math/math.h"
+#include "framework/graphics/gfx.h"
+#include "framework/util/file_utils.h"
 #include "framework/ecs/ecs.h"

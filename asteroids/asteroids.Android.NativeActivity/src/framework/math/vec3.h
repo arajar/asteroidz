@@ -17,6 +17,7 @@ namespace m
 		vec3_type() : x(), y(), z() {}
 		vec3_type(T value) : x(value), y(value), z(value) {}
 		vec3_type(T x, T y, T z) : x(x), y(y), z(z) {}
+		vec3_type(const vec2_type<T>& other) : x(other.x), y(other.y), z(0) {}
 		vec3_type(const vec3_type<T>& other) : x(other.x), y(other.y), z(other.z) {}
 
 		T& operator[](int i) { return (&x)[i]; }

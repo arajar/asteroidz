@@ -9,15 +9,10 @@ namespace e
 
 	struct direction : public ecs::component
 	{
-		m::vec2 dir;
+		float angle = 0.f;
 	};
 
 	struct acceleration : public ecs::component
-	{
-		float acc = 0.f;
-	};
-
-	struct constantAcceleration : public ecs::component
 	{
 		float acc = 0.f;
 	};
@@ -31,5 +26,12 @@ namespace e
 	struct player : public ecs::component
 	{
 		bool dead = false;
+	};
+
+	struct renderable : public ecs::component
+	{
+		GLuint vbo;
+		gfx::shader* shader;
+		GLuint numOfPolys;
 	};
 }

@@ -16,6 +16,8 @@ namespace m
 		vec4_type() : x(), y(), z(), w() {}
 		vec4_type(T value) : x(value), y(value), z(value), w(value) {}
 		vec4_type(T x, T y, T z, T w) : x(x), y(y), z(z), w(w) {}
+		vec4_type(const vec2_type<T>& other) : x(other.x), y(other.y), z(0), w(0) {}
+		vec4_type(const vec3_type<T>& other) : x(other.x), y(other.y), z(other.z), w(0) {}
 		vec4_type(const vec4_type<T>& other) : x(other.x), y(other.y), z(other.z), w(other.w) {}
 
 		T& operator[](int i) { return (&x)[i]; }

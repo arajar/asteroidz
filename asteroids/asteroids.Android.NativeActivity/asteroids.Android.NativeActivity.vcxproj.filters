@@ -62,9 +62,6 @@
     <ClInclude Include="src\game\states\state_dead.h">
       <Filter>game\states</Filter>
     </ClInclude>
-    <ClInclude Include="src\framework\graphics\vertex.h">
-      <Filter>framework\graphics</Filter>
-    </ClInclude>
     <ClInclude Include="src\framework\math\vec4.h">
       <Filter>framework\math</Filter>
     </ClInclude>
@@ -84,6 +81,12 @@
       <Filter>game\entities</Filter>
     </ClInclude>
     <ClInclude Include="src\game\entities\movementSystem.h">
+      <Filter>game\entities</Filter>
+    </ClInclude>
+    <ClInclude Include="src\framework\graphics\gfx.h">
+      <Filter>framework\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\game\entities\renderSystem.h">
       <Filter>game\entities</Filter>
     </ClInclude>
   </ItemGroup>

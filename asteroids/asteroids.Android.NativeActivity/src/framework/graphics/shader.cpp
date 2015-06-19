@@ -46,7 +46,7 @@ namespace gfx
 			glGetProgramInfoLog(m_object, sizeof(buffer), &len, buffer);
 			if (len)
 			{
-				int a = 42343;
+				//int a = 42343;
 			}
 		}
 		return linked == GL_TRUE;
@@ -148,7 +148,7 @@ namespace gfx
 			glGetShaderInfoLog(shader, sizeof(buffer), &len, buffer);
 			if (len)
 			{
-				int a = 5433;
+				//int a = 5433;
 			}
 		}
 

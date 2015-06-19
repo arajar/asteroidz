@@ -95,6 +95,7 @@ namespace m
 		friend mat4_type<T> operator/(const mat4_type<T>& m1, const mat4_type<T>& m2) { auto temp(m1); return temp /= m2; }
 
 		static mat4_type<T> inverse(const mat4_type<T>& m);
+		static mat4_type<T> translate(const mat4_type<T>& m, const vec2_type<T>& v);
 		static mat4_type<T> translate(const mat4_type<T>& m, const vec3_type<T>& v);
 		static mat4_type<T> rotate(const mat4_type<T>& m, T angle, const vec3_type<T>& v);
 		static mat4_type<T> scale(const mat4_type<T>& m, const vec3_type<T>& v);

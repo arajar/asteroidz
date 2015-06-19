@@ -1,6 +1,5 @@
 #pragma once
-
-#include "../../framework/graphics/shader.h"
+#include "../entities/entity.h"
 
 class stateMenu : public states::state
 {
@@ -17,9 +16,8 @@ public:
 	virtual void render() override;
 
 private:
-	gfx::shader* m_shader;
-	GLuint m_vertexBuffer;
-	GLuint m_indexBuffer;
+	e::renderable createAsteroid();
 
-	GLubyte m_indices[3];
+private:
+	gfx::shader* m_shader;
 };

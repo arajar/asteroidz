@@ -4,6 +4,7 @@
 
 namespace m
 {
+
 	template<typename T>
 	struct vec2_type
 	{

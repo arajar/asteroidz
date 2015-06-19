@@ -61,6 +61,12 @@ namespace m
 	}
 
 	template<typename T>
+	mat4_type<T> translate(const mat4_type<T>& m, const vec2_type<T>& v)
+	{
+		return translate(m, vec3_type<T>(v));
+	}
+	
+	template<typename T>
 	mat4_type<T> mat4_type<T>::translate(const mat4_type<T>& m, const vec3_type<T>& v)
 	{
 		mat4_type<T> res = m;
