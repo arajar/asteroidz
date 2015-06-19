@@ -84,13 +84,20 @@ void stateMenu::update(float deltaTime)
 
 void stateMenu::render()
 {
-	//for (int i = 0; i < asteroids.size(); ++i)
+	for (int i = 0; i < asteroids.size(); ++i)
 	{
 		//LOGI("ast %d", i);
-		const auto& asteroid = asteroids[0];
-		const auto& pos = positions[0];
+		const auto& asteroid = asteroids[i];
+		const auto& pos = positions[i];
 		
-		glBindBuffer(GL_ARRAY_BUFFER, 2);
+		glBindBuffer(GL_ARRAY_BUFFER, asteroid.vbo);
+		glEnableVertexAttribArray(m_shader->attribute("vert"));
+		glVertexAttribPointer(m_shader->attribute("vert"), 3, GL_FLOAT, GL_FALSE, sizeof(struct attributes), 0);
+
+		glEnableVertexAttribArray(m_shader->attribute("color"));
+		glVertexAttribPointer(m_shader->attribute("color"), 3, GL_FLOAT, GL_FALSE, sizeof(struct attributes)
+			, (void*)offsetof(struct attributes, v_color));
+
 		//LOGI("ast vbo %d", asteroid.vbo);
 		m::mat4 m = m::mat4::translate(m::mat4(), m::vec3(pos.x, pos.y, 0)) * m::mat4::scale(m::mat4(), m::vec3(0.5));
 		asteroid.shader->begin();
@@ -98,37 +105,23 @@ void stateMenu::render()
 		asteroid.shader->uniform("model", m);
 		glDrawArrays(GL_LINE_LOOP, 0, asteroid.numOfPolys);
 		asteroid.shader->end();
+
+		glDisableVertexAttribArray(m_shader->attribute("vert"));
+		glDisableVertexAttribArray(m_shader->attribute("color"));
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 	}
 
-	glBindBuffer(GL_ARRAY_BUFFER, vbo_triangle);
-	m_shader->begin();
+	//glBindBuffer(GL_ARRAY_BUFFER, vbo_triangle);
+	//m_shader->begin();
 
-	m::mat4 model = m::mat4::translate(m::mat4(), m::vec3(10, 0, 0));
+	//m::mat4 model = m::mat4::translate(m::mat4(), m::vec3(10, 0, 0));
 
-	m_shader->uniform("camera", cam.matrix());
-	m_shader->uniform("model", model);
+	//m_shader->uniform("camera", cam.matrix());
+	//m_shader->uniform("model", model);
 
-	glDrawArrays(GL_TRIANGLES, 0, 6);
-	m_shader->end();
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-
-	{
-		//LOGI("ast %d", i);
-		const auto& asteroid = asteroids[1];
-		const auto& pos = positions[1];
-
-		glBindBuffer(GL_ARRAY_BUFFER, 4);
-		//LOGI("ast vbo %d", asteroid.vbo);
-		m::mat4 m = m::mat4::translate(m::mat4(), m::vec3(pos.x, pos.y, 0)) * m::mat4::scale(m::mat4(), m::vec3(0.5));
-		asteroid.shader->begin();
-		asteroid.shader->uniform("camera", cam.matrix());
-		asteroid.shader->uniform("model", m);
-		glDrawArrays(GL_LINE_LOOP, 0, asteroid.numOfPolys);
-		asteroid.shader->end();
-		glBindBuffer(GL_ARRAY_BUFFER, 0);
-	}
-
+	//glDrawArrays(GL_TRIANGLES, 0, 6);
+	//m_shader->end();
+	//glBindBuffer(GL_ARRAY_BUFFER, 0);
 
 	GLenum error = glGetError();
 	if (error != GL_NO_ERROR)
