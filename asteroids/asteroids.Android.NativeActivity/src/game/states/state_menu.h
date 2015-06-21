@@ -16,8 +16,8 @@ public:
 	virtual void render() override;
 
 private:
-	e::renderable createAsteroid();
+	void createAsteroid(e::renderable* r);
+	void createShip(e::renderable* r);
 
-private:
-	gfx::shader* m_shader;
+	ecs::world m_world;
 };

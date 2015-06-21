@@ -11,6 +11,7 @@ namespace m
 		{
 			struct { T x; T y; T z; T w; };
 			struct { T r; T g; T b; T a; };
+			struct { T h; T s; T v; };
 		};
 
 		vec4_type() : x(), y(), z(), w() {}

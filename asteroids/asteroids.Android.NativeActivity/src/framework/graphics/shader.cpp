@@ -64,7 +64,8 @@ namespace gfx
 
 	unsigned int shader::attribute(const char* name) const
 	{
-		return glGetAttribLocation(m_object, name);
+		auto derp = glGetAttribLocation(m_object, name);
+		return derp;
 	}
 
 	unsigned int shader::uniform(const char* name) const

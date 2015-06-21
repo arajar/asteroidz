@@ -15,6 +15,16 @@
 #include "android_native_app_glue.h"
 #include <android/asset_manager.h>
 
+#define LOGI(...) ((void)__android_log_print(ANDROID_LOG_INFO, "asteroids.NativeActivity", __VA_ARGS__))
+#define LOGE(...) ((void)__android_log_print(ANDROID_LOG_ERROR, "asteroids.NativeActivity", __VA_ARGS__))
+
+/* For debug builds, always enable the debug traces in this library */
+#ifndef NDEBUG
+#  define LOGV(...)  ((void)__android_log_print(ANDROID_LOG_VERBOSE, "threaded_app", __VA_ARGS__))
+#else
+#  define LOGV(...)  ((void)0)
+#endif
+
 #include "framework/states/state_manager.h"
 #include "framework/math/math.h"
 #include "framework/graphics/gfx.h"

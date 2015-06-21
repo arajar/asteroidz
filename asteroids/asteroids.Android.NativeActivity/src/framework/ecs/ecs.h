@@ -41,7 +41,7 @@ namespace ecs
 
 		entity createEntity()
 		{
-			entity id = static_cast<unsigned int>(m_entities.size()) + 1;
+			entity id = static_cast<entity>(m_entities.size()) + 1;
 			m_entities[id].reserve(0);
 			return id;
 		}
@@ -96,7 +96,10 @@ namespace ecs
 		{
 			for (const auto& comp : m_entities[id])
 			{
-				if (dynamic_cast<c*>(comp)) { return true; }
+				if (dynamic_cast<c*>(comp))
+				{
+				 return true; 
+				}
 			}
 			return false;
 		}
@@ -169,7 +172,7 @@ namespace ecs
 			return false;
 		}
 
-		template<typename c = component>
+		template<typename c>
 		bool search(std::vector<entity>& vec, entity en)
 		{
 			for (auto& co : m_entities[en])
@@ -184,18 +187,47 @@ namespace ecs
 			return false;
 		}
 
-		template<typename c = component, typename...Args>
+		template<typename c, typename A>
 		std::vector<entity> search()
 		{
 			std::vector<entity> vec;
 			for (auto& e : m_entities)
 			{
-				if (get<c>(e.first) && search<Args...>(vec, e.first))
+				if (get<c>(e.first) && search<A>(vec, e.first))
 				{
 					continue;
 				}
 			}
 			return vec;
 		}
+
+		template<typename c, typename A, typename B>
+		std::vector<entity> search()
+		{
+			std::vector<entity> vec;
+			for (auto& e : m_entities)
+			{
+				if (get<c>(e.first) && search<A>(vec, e.first) && search<B>(vec, e.first))
+				{
+					continue;
+				}
+			}
+			return vec;
+		}
+
+		template<typename c, typename A, typename B, typename C>
+		std::vector<entity> search()
+		{
+			std::vector<entity> vec;
+			for (auto& e : m_entities)
+			{
+				if (get<c>(e.first) && search<A>(vec, e.first) && search<B>(vec, e.first) && search<C>(vec, e.first))
+				{
+					continue;
+				}
+			}
+			return vec;
+		}
+
 	};
 }

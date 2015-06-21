@@ -22,6 +22,7 @@
       <Filter>game\states</Filter>
     </ClCompile>
     <ClCompile Include="src\framework\graphics\camera.cpp" />
+    <ClCompile Include="src\framework\graphics\fbo.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\android_native_app_glue.h" />
@@ -88,6 +89,12 @@
     </ClInclude>
     <ClInclude Include="src\game\entities\renderSystem.h">
       <Filter>game\entities</Filter>
+    </ClInclude>
+    <ClInclude Include="src\framework\graphics\vertex.h">
+      <Filter>framework\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\framework\graphics\fbo.h">
+      <Filter>framework\graphics</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -33,5 +33,6 @@ namespace e
 		GLuint vbo;
 		gfx::shader* shader;
 		GLuint numOfPolys;
+		GLuint type;
 	};
 }
