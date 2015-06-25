@@ -4,6 +4,9 @@
 class stateMenu : public states::state
 {
 public:
+	stateMenu(const m::vec2& screenSize) : m_screenSize(screenSize) {}
+
+public:
 	// Inherited via state
 	virtual void start() override;
 	virtual void resume() override;
@@ -16,8 +19,6 @@ public:
 	virtual void render() override;
 
 private:
-	void createAsteroid(e::renderable* r);
-	void createShip(e::renderable* r);
-
 	ecs::world m_world;
+	const m::vec2 m_screenSize;
 };

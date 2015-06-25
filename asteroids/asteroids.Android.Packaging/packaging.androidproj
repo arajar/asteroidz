@@ -63,6 +63,10 @@
     </AntPackage>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <Content Include="assets\bloom.ps.glsl" />
+    <Content Include="assets\bloom.vs.glsl" />
+    <Content Include="assets\circle.ps.glsl" />
+    <Content Include="assets\circle.vs.glsl" />
     <Content Include="assets\default.ps.glsl" />
     <Content Include="assets\default.vs.glsl" />
     <Content Include="assets\empty.txt" />

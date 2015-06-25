@@ -100,6 +100,8 @@ namespace m
 		static mat4_type<T> rotate(const mat4_type<T>& m, T angle, const vec3_type<T>& v);
 		static mat4_type<T> scale(const mat4_type<T>& m, const vec3_type<T>& v);
 		static mat4_type<T> perspective(T fov, T aspect, T near, T far);
+		static mat4_type<T> ortho(T left, T right, T bottom, T top, T near, T far);
+		static mat4_type<T> lookAt(const m::vec3_type<T>& eye, const m::vec3_type<T>& center, const m::vec3_type<T>& up);
 	};
 
 	using mat4 = mat4_type<GLfloat>;

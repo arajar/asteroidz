@@ -16,6 +16,7 @@
 #include <android/asset_manager.h>
 
 #define LOGI(...) ((void)__android_log_print(ANDROID_LOG_INFO, "asteroids.NativeActivity", __VA_ARGS__))
+#define LOGW(...) ((void)__android_log_print(ANDROID_LOG_WARN, "asteroids.NativeActivity", __VA_ARGS__))
 #define LOGE(...) ((void)__android_log_print(ANDROID_LOG_ERROR, "asteroids.NativeActivity", __VA_ARGS__))
 
 /* For debug builds, always enable the debug traces in this library */
@@ -30,3 +31,7 @@
 #include "framework/graphics/gfx.h"
 #include "framework/util/file_utils.h"
 #include "framework/ecs/ecs.h"
+#include "framework/input/input.h"
+
+#include "game/entities/entity.h"
+#include "game/util/util.h"

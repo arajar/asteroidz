@@ -23,6 +23,9 @@
     </ClCompile>
     <ClCompile Include="src\framework\graphics\camera.cpp" />
     <ClCompile Include="src\framework\graphics\fbo.cpp" />
+    <ClCompile Include="src\game\util\util.cpp">
+      <Filter>game\util</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\android_native_app_glue.h" />
@@ -96,6 +99,15 @@
     <ClInclude Include="src\framework\graphics\fbo.h">
       <Filter>framework\graphics</Filter>
     </ClInclude>
+    <ClInclude Include="src\game\util\util.h">
+      <Filter>game\util</Filter>
+    </ClInclude>
+    <ClInclude Include="src\framework\input\input.h">
+      <Filter>framework\input</Filter>
+    </ClInclude>
+    <ClInclude Include="src\game\entities\collisionSystem.h">
+      <Filter>game\entities</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="framework">
@@ -127,6 +139,9 @@
     </Filter>
     <Filter Include="game\entities">
       <UniqueIdentifier>{269c8403-45ec-4c86-8463-0ca8c2298f10}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="game\util">
+      <UniqueIdentifier>{086afa94-2503-4931-bcc4-ceb857f6ca04}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

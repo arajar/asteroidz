@@ -21,6 +21,7 @@ namespace e
 	{
 		std::vector<m::vec2> pointCloud;
 		float colRadius = 0.f;
+		bool collided = false;
 	};
 
 	struct player : public ecs::component

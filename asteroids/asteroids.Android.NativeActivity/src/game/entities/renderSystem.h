@@ -24,7 +24,7 @@ namespace e
 				const auto r = m_world.get<renderable>(en);
 
 				// take the current position and direction (angle) and create a transformation matrix
-				const m::mat4 transform = m::mat4::translate(m::mat4(), m::vec3(p->pos)) * m::mat4::rotate(m::mat4(), d->angle, m::vec3(0, 0, 1));
+				const m::mat4 transform = m::mat4::rotate(m::mat4(), d->angle, m::vec3(0, 0, 1)) * m::mat4::translate(m::mat4(), m::vec3(p->pos));
 
 				// future optimization: bind the shader only once to avoid binding and unbinding the same shader
 				glBindBuffer(GL_ARRAY_BUFFER, r->vbo);

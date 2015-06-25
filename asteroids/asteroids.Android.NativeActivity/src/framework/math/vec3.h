@@ -64,6 +64,13 @@ namespace m
 		friend vec3_type<T> fract(const vec3_type<T> &v) { return v - floor(v); }
 		friend vec3_type<T> normalized(const vec3_type<T> &v) { return v / length(v); }
 
+		static vec3_type<T> cross(const vec3_type<T>& x, const vec3_type<T>& y)
+		{
+			return vec3_type<T>(
+				x.y * y.z - y.y * x.z,
+				x.z * y.x - y.z * x.x,
+				x.x * y.y - y.x * x.y);
+		}
 	};
 
 	using vec3 = vec3_type<GLfloat>;

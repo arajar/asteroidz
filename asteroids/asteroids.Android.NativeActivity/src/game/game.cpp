@@ -3,7 +3,7 @@
 
 // Fixed to 30 fps
 const int Game::FPS = 30;
-const float Game::TIME_PER_FRAME = 1000.f / Game::FPS;
+const float Game::TIME_PER_FRAME = Game::FPS / 1000.f;
 
 Game::Game(const char* name)
 	: m_stateMgr(nullptr)
@@ -58,7 +58,7 @@ int Game::initDisplay()
 	{
 		attribList = RGB_565_ATTRIBS;
 	}
-	
+
 	EGLint format;
 	EGLint numConfigs;
 	EGLConfig config;
@@ -73,20 +73,20 @@ int Game::initDisplay()
 	ANativeWindow_setBuffersGeometry(m_applicationState->window, 0, 0, format);
 
 	m_surface = eglCreateWindowSurface(m_display, config, m_applicationState->window, nullptr);
-	
+
 	EGLint contextAttribs[] = { EGL_CONTEXT_CLIENT_VERSION, 2, EGL_NONE };
 	m_context = eglCreateContext(m_display, config, EGL_NO_CONTEXT, contextAttribs);
-	
+
 	if (eglMakeCurrent(m_display, m_surface, m_surface, m_context) == EGL_FALSE)
 	{
-		//	LOGW("Unable to eglMakeCurrent");
+		LOGW("Unable to eglMakeCurrent");
 		return -1;
 	}
 
 	eglQuerySurface(m_display, m_surface, EGL_WIDTH, &m_width);
 	eglQuerySurface(m_display, m_surface, EGL_HEIGHT, &m_height);
 
-	m_stateMgr->setState<stateMenu>();
+	m_stateMgr->setState<stateMenu>(m::vec2(m_width, m_height));
 	return 0;
 }
 
@@ -198,7 +198,7 @@ int32_t Game::internalHandleInput(AInputEvent* event)
 
 	if (AKeyEvent_getKeyCode(event) == AKEYCODE_BACK)
 	{
-		m_stateMgr->setState<stateMenu>();
+		m_stateMgr->setState<stateMenu>(m::vec2(m_width, m_height));
 
 		//backButtonPushed();
 		// Exit the game

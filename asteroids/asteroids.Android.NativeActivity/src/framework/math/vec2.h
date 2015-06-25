@@ -35,11 +35,6 @@ namespace m
 		vec2_type<T> operator*(T other) const { return vec2_type<T>(x*other, y*other); }
 		vec2_type<T> operator/(T other) const { return vec2_type<T>(x / other, y / other); }
 
-		friend vec2_type<T> operator+(float s, const vec2_type<T>& vec) { return vec2_type<T>(s + vec.x, s + vec.y); }
-		friend vec2_type<T> operator-(float s, const vec2_type<T>& vec) { return vec2_type<T>(s - vec.x, s - vec.y); }
-		friend vec2_type<T> operator*(float s, const vec2_type<T>& vec) { return vec2_type<T>(s * vec.x, s * vec.y); }
-		friend vec2_type<T> operator/(float s, const vec2_type<T>& vec) { return vec2_type<T>(s / vec.x, s / vec.y); }
-
 		vec2_type<T>& operator+=(const vec2_type<T>& other) { return *this = *this + other; }
 		vec2_type<T>& operator-=(const vec2_type<T>& other) { return *this = *this - other; }
 		vec2_type<T>& operator*=(const vec2_type<T>& other) { return *this = *this * other; }
@@ -52,17 +47,17 @@ namespace m
 		bool operator==(const vec2_type<T>& other) const { return x == other.x && y == other.y; }
 		bool operator!=(const vec2_type<T>& other) const { return x != other.x || y != other.y; }
 
-		friend float length(const vec2_type<T> &v) { return sqrtf(v.x * v.x + v.y * v.y); }
-		friend float dot(const vec2_type<T> &a, const vec2_type<T> &b) { return a.x * b.x + a.y * b.y; }
-		friend float max(const vec2_type<T> &v) { return fmaxf(v.x, v.y); }
-		friend float min(const vec2_type<T> &v) { return fminf(v.x, v.y); }
-		friend vec2_type<T> max(const vec2_type<T> &a, const vec2_type<T> &b) { return vec2_type<T>(fmaxf(a.x, b.x), fmaxf(a.y, b.y)); }
-		friend vec2_type<T> min(const vec2_type<T> &a, const vec2_type<T> &b) { return vec2_type<T>(fminf(a.x, b.x), fminf(a.y, b.y)); }
-		friend vec2_type<T> floor(const vec2_type<T> &v) { return vec2_type<T>(floorf(v.x), floorf(v.y)); }
-		friend vec2_type<T> ceil(const vec2_type<T> &v) { return vec2_type<T>(ceilf(v.x), ceilf(v.y)); }
-		friend vec2_type<T> abs(const vec2_type<T> &v) { return vec2_type<T>(fabsf(v.x), fabsf(v.y)); }
-		friend vec2_type<T> fract(const vec2_type<T> &v) { return v - floor(v); }
-		friend vec2_type<T> normalized(const vec2_type<T> &v) { return v / length(v); }
+		static float length(const vec2_type<T> &v) { return sqrtf(v.x * v.x + v.y * v.y); }
+		static float dot(const vec2_type<T> &a, const vec2_type<T> &b) { return a.x * b.x + a.y * b.y; }
+		static float max(const vec2_type<T> &v) { return fmaxf(v.x, v.y); }
+		static float min(const vec2_type<T> &v) { return fminf(v.x, v.y); }
+		static vec2_type<T> max(const vec2_type<T> &a, const vec2_type<T> &b) { return vec2_type<T>(fmaxf(a.x, b.x), fmaxf(a.y, b.y)); }
+		static vec2_type<T> min(const vec2_type<T> &a, const vec2_type<T> &b) { return vec2_type<T>(fminf(a.x, b.x), fminf(a.y, b.y)); }
+		static vec2_type<T> floor(const vec2_type<T> &v) { return vec2_type<T>(floorf(v.x), floorf(v.y)); }
+		static vec2_type<T> ceil(const vec2_type<T> &v) { return vec2_type<T>(ceilf(v.x), ceilf(v.y)); }
+		static vec2_type<T> abs(const vec2_type<T> &v) { return vec2_type<T>(fabsf(v.x), fabsf(v.y)); }
+		static vec2_type<T> fract(const vec2_type<T> &v) { return v - floor(v); }
+		static vec2_type<T> normalized(const vec2_type<T> &v) { return v / length(v); }
 
 	};
 

@@ -114,12 +114,14 @@ namespace gfx
 
 	m::mat4 camera::projection() const
 	{
-		return m::mat4::perspective(m::toRad(m_fieldOfView), m_viewportAspectRatio, m_nearPlane, m_farPlane);
+		return m::mat4::ortho(0.f, 1804.f, 1080.f, 0.f, -1.f, 1000.f);
+		//return m::mat4::perspective(m::toRad(m_fieldOfView), m_viewportAspectRatio, m_nearPlane, m_farPlane);
 	}
 
 	m::mat4 camera::view() const
 	{
-		return getOrientation() * m::mat4::translate(m::mat4(), -m_position);
+		return m::mat4::lookAt(m::vec3(0.f, 0.f, 10.f), m::vec3(0, 0, 0), m::vec3(1, 0, 0));
+		//return getOrientation() * m::mat4::translate(m::mat4(), -m_position);
 	}
 
 	void camera::normalizeAngles()

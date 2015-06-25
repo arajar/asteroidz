@@ -207,8 +207,10 @@ namespace ecs
 			std::vector<entity> vec;
 			for (auto& e : m_entities)
 			{
-				if (get<c>(e.first) && search<A>(vec, e.first) && search<B>(vec, e.first))
+				std::vector<entity> tmp;
+				if (get<c>(e.first) && search<A>(tmp, e.first) && search<B>(tmp, e.first))
 				{
+					vec.insert(vec.begin(), tmp.begin(), tmp.end());
 					continue;
 				}
 			}
@@ -221,13 +223,14 @@ namespace ecs
 			std::vector<entity> vec;
 			for (auto& e : m_entities)
 			{
-				if (get<c>(e.first) && search<A>(vec, e.first) && search<B>(vec, e.first) && search<C>(vec, e.first))
+				std::vector<entity> tmp;
+				if (get<c>(e.first) && search<A>(tmp, e.first) && search<B>(tmp, e.first) && search<C>(tmp, e.first))
 				{
+					vec.insert(vec.begin(), tmp.begin(), tmp.end());
 					continue;
 				}
 			}
 			return vec;
 		}
-
 	};
 }
