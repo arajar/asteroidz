@@ -58,6 +58,8 @@ protected:
 	bool m_running;
 	bool m_shouldClose;
 
+	input::TouchEvent ev[2];
+
 private:
 	EGLDisplay m_display;
 	EGLSurface m_surface;

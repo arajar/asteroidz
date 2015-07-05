@@ -3,7 +3,7 @@
 
 // Fixed to 30 fps
 const int Game::FPS = 30;
-const float Game::TIME_PER_FRAME = Game::FPS / 1000.f;
+const float Game::TIME_PER_FRAME = Game::FPS / 100.f;
 
 Game::Game(const char* name)
 	: m_stateMgr(nullptr)
@@ -86,7 +86,12 @@ int Game::initDisplay()
 	eglQuerySurface(m_display, m_surface, EGL_WIDTH, &m_width);
 	eglQuerySurface(m_display, m_surface, EGL_HEIGHT, &m_height);
 
-	m_stateMgr->setState<stateMenu>(m::vec2(m_width, m_height));
+	glViewport(0, 0, m_width, m_height);
+	glEnable(GL_CULL_FACE);
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+	m_stateMgr->setState<stateMenu>(glm::vec2(m_width, m_height));
 	return 0;
 }
 
@@ -188,17 +193,35 @@ int32_t Game::internalHandleInput(AInputEvent* event)
 	if (AInputEvent_getType(event) == AINPUT_EVENT_TYPE_MOTION)
 	{
 		// Check for multi touch, and also restrict touches to 2
-		for (size_t touchId = 0; touchId < AMotionEvent_getPointerCount(event) && touchId < 2; ++touchId)
+		size_t pointerCount = AMotionEvent_getPointerCount(event);
+		for (size_t touchId = 0; touchId < pointerCount && touchId < 2; ++touchId)
 		{
-			//float x = AMotionEvent_getX(event, touchId);
-			//float y = AMotionEvent_getX(event, touchId);
+			int32_t action = AMotionEvent_getAction(event);
+			unsigned int flags = action & AMOTION_EVENT_ACTION_MASK;
+			switch (flags)
+			{
+			case AMOTION_EVENT_ACTION_POINTER_DOWN:
+			case AMOTION_EVENT_ACTION_MOVE:
+			case AMOTION_EVENT_ACTION_DOWN:
+				ev[touchId].action = input::Action::Down;
+				ev[touchId].x = AMotionEvent_getX(event, touchId);
+				ev[touchId].y = AMotionEvent_getY(event, touchId);
+				ev[touchId].alpha = 1.f;
+				break;
+			case AMOTION_EVENT_ACTION_POINTER_UP:
+			case AMOTION_EVENT_ACTION_UP:
+				ev[touchId].action = input::Action::Up;
+				break;
+			}
+
+			m_stateMgr->handleEvents(ev[touchId]);
 		}
 		return 1;
 	}
 
 	if (AKeyEvent_getKeyCode(event) == AKEYCODE_BACK)
 	{
-		m_stateMgr->setState<stateMenu>(m::vec2(m_width, m_height));
+		m_stateMgr->setState<stateMenu>(glm::vec2(m_width, m_height));
 
 		//backButtonPushed();
 		// Exit the game

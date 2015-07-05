@@ -9,8 +9,5 @@ varying vec3 f_color;
 void main()
 {
 	f_color = color;
-	//gl_Position = camera * model * vec4(vert, 1);
-	//gl_Position = projection * vec4(vert, 1);
-	//gl_Position = camera * vec4(vert, 1);
 	gl_Position = camera * model * vec4(vert, 1);
 }

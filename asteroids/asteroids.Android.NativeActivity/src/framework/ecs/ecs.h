@@ -16,6 +16,14 @@ namespace ecs
 
 	////////////////////////////////////////////////////////////////////////////
 	
+	enum class priority
+	{
+		OncePerFrame,
+		EveryFrame,
+	};
+
+	////////////////////////////////////////////////////////////////////////////
+	
 	struct component
 	{
 		virtual ~component() {}
@@ -25,11 +33,12 @@ namespace ecs
 	
 	struct system
 	{
-		system(world& world) : m_world(world) {}
+		system(world& world, const priority prio = priority::EveryFrame) : m_world(world), m_prio(prio) {}
 		virtual void operator()() const {} // render
-		virtual void operator()(float delta) const {} // update
+		virtual void operator()(float delta) {} // update
 
 		world& m_world;
+		priority m_prio;
 	};
 
 	////////////////////////////////////////////////////////////////////////////
@@ -39,9 +48,12 @@ namespace ecs
 		std::map<entity, std::vector<component*>> m_entities;
 		std::vector<system*> m_systems;
 
+		bool m_newFrame = true;
+		
 		entity createEntity()
 		{
-			entity id = static_cast<entity>(m_entities.size()) + 1;
+			static size_t numEntities = 0;
+			entity id = static_cast<entity>(numEntities++);
 			m_entities[id].reserve(0);
 			return id;
 		}
@@ -61,6 +73,11 @@ namespace ecs
 			}
 		}
 
+		void startFrame()
+		{
+			m_newFrame = true;
+		}
+
 		void operator()()
 		{
 			for (auto& s : m_systems)
@@ -74,9 +91,17 @@ namespace ecs
 		{
 			for (auto& s : m_systems)
 			{
+				// check if the system must be updated only once per frame
+				if (s->m_prio == priority::OncePerFrame && !m_newFrame)
+				{
+					continue;
+				}
+
 				// this will update the system
 				(*s)(deltaTime);
 			}
+			
+			m_newFrame = false;
 		}
 
 		template<typename c = component>
@@ -185,6 +210,21 @@ namespace ecs
 				}
 			}
 			return false;
+		}
+
+		template<typename A>
+		std::vector<entity> search()
+		{
+			std::vector<entity> vec;
+			for(auto& e : m_entities)
+			{
+				if(search<A>(vec, e.first))
+				{
+					continue;
+				}
+			}
+
+			return vec;
 		}
 
 		template<typename c, typename A>

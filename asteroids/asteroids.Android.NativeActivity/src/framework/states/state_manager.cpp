@@ -30,11 +30,11 @@ namespace states
 
 	//////////////////////////////////////////////////////////////////////////
 	
-	void manager::handleEvents()
+	void manager::handleEvents(const input::TouchEvent& ev)
 	{
 		if (!m_states.empty())
 		{
-			m_states.back()->handleEvents();
+			m_states.back()->handleEvents(ev);
 		}
 	}
 

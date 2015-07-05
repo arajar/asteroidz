@@ -4,7 +4,7 @@
 class stateMenu : public states::state
 {
 public:
-	stateMenu(const m::vec2& screenSize) : m_screenSize(screenSize) {}
+	stateMenu(const glm::vec2& screenSize) : m_screenSize(screenSize) {}
 
 public:
 	// Inherited via state
@@ -14,11 +14,15 @@ public:
 	virtual void end() override;
 
 public:
-	virtual void handleEvents() override;
+	virtual void handleEvents(const input::TouchEvent& type) override;
 	virtual void update(float deltaTime) override;
 	virtual void render() override;
 
+protected:
+	ecs::entity m_ship;
+	ecs::entity m_missile;
+
 private:
 	ecs::world m_world;
-	const m::vec2 m_screenSize;
+	const glm::vec2 m_screenSize;
 };

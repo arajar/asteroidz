@@ -18,7 +18,7 @@ namespace states
 		virtual void end() = 0;
 
 	public:
-		virtual void handleEvents() { }
+		virtual void handleEvents(const input::TouchEvent& ev) { }
 		virtual void update(float deltaTime) { }
 		virtual void render() { }
 	};

@@ -21,7 +21,6 @@
   <ItemGroup>
     <ClCompile Include="src\android_native_app_glue.c" />
     <ClCompile Include="src\android_main.cpp" />
-    <ClCompile Include="src\framework\graphics\camera.cpp" />
     <ClCompile Include="src\framework\graphics\fbo.cpp" />
     <ClCompile Include="src\framework\util\file_utils.cpp" />
     <ClCompile Include="src\framework\graphics\shader.cpp" />
@@ -34,7 +33,6 @@
   <ItemGroup>
     <ClInclude Include="src\android_native_app_glue.h" />
     <ClInclude Include="src\framework\ecs.h" />
-    <ClInclude Include="src\framework\graphics\camera.h" />
     <ClInclude Include="src\framework\graphics\fbo.h" />
     <ClInclude Include="src\framework\graphics\gfx.h" />
     <ClInclude Include="src\framework\graphics\vertex.h" />
@@ -50,10 +48,14 @@
     <ClInclude Include="src\framework\math\vec2.h" />
     <ClInclude Include="src\framework\math\vec3.h" />
     <ClInclude Include="src\framework\input\virtual_joystick.h" />
+    <ClInclude Include="src\framework\util\tweener.h" />
     <ClInclude Include="src\game\entities\collisionSystem.h" />
+    <ClInclude Include="src\game\entities\debugRenderSystem.h" />
     <ClInclude Include="src\game\entities\entity.h" />
     <ClInclude Include="src\game\entities\movementSystem.h" />
     <ClInclude Include="src\game\entities\renderSystem.h" />
+    <ClInclude Include="src\game\entities\shootSystem.h" />
+    <ClInclude Include="src\game\entities\spawnSystem.h" />
     <ClInclude Include="src\game\game.h" />
     <ClInclude Include="src\game\states\state_dead.h" />
     <ClInclude Include="src\game\states\state_gameplay.h" />

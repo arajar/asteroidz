@@ -18,7 +18,7 @@ namespace states
 	public:
 		void update(float deltaTime);
 		void render();
-		void handleEvents();
+		void handleEvents(const input::TouchEvent& ev);
 
 	public:
 		state* getCurrentState();

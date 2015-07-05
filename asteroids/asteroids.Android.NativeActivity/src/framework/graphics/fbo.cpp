@@ -84,21 +84,12 @@ namespace gfx
 		glBindTexture(GL_TEXTURE_2D, m_fboTexture);
 		m_shader->begin();
 
-		//m_shader->uniform("fbo_texture", GL_TEXTURE);
-		m_shader->uniform("model", m::mat4());
-		m_shader->uniform("camera", m::mat4());
-
 		glEnableVertexAttribArray(m_shader->attribute("vert"));
 		glVertexAttribPointer(m_shader->attribute("vert"), 2, GL_FLOAT, GL_FALSE, 0, 0);
-
-		glEnableVertexAttribArray(m_shader->attribute("color"));
-		glVertexAttribPointer(m_shader->attribute("color"), 3, GL_FLOAT, GL_FALSE, sizeof(gfx::vertex)
-			, (void*)offsetof(gfx::vertex, color));
 
 		glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 
 		glDisableVertexAttribArray(m_shader->attribute("vert"));
-		glDisableVertexAttribArray(m_shader->attribute("color"));
 
 		m_shader->end();
 		glBindTexture(GL_TEXTURE_2D, 0);
