@@ -1,11 +1,47 @@
 #include "manager.h"
 #include "particle.h"
 
-namespace particles
+namespace ps
 {
-	manager::manager(int capacity)
-		: m_particleList(capacity)
+	util::circularArray<particle> manager::m_particleList(1024 * 20);
+	GLuint			manager::m_vbo = 0;
+	gfx::shader*	manager::m_shader = nullptr;
+	gfx::texture*	manager::m_texture = nullptr;
+	int				manager::m_numOfPolys = 0;
+	glm::mat4		manager::m_projection;
+
+	void manager::init(const glm::mat4& projection)
 	{
+		m_projection = projection;
+		m_shader = new gfx::shader;
+		m_shader->vertex("particle.vs.glsl").pixel("particle.ps.glsl").link();
+
+		GLfloat vertices[] = {
+			//  pos       tex
+				0.f, 1.f, 0.f, 1.f,
+				1.f, 0.f, 1.f, 0.f,
+				0.f, 0.f, 0.f, 0.f,
+
+				0.f, 1.f, 0.f, 1.f,
+				1.f, 1.f, 1.f, 1.f,
+				1.f, 0.f, 1.f, 0.f
+		};
+
+		m_numOfPolys = sizeof(vertices) / sizeof(GLfloat);
+
+		// create the vbo and bind the attributes
+		glGenBuffers(1, &m_vbo);
+		glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+
+		glEnableVertexAttribArray(m_shader->attribute("vert"));
+		glVertexAttribPointer(m_shader->attribute("vert"), 4, GL_FLOAT, GL_FALSE, sizeof(GLfloat), 0);
+		glDisableVertexAttribArray(m_shader->attribute("vert"));
+
+		glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+		m_texture = new gfx::texture;
+		m_texture->load("glow.bmp");
 	}
 
 	void manager::update()
@@ -31,10 +67,45 @@ namespace particles
 
 	void manager::render()
 	{
-		//render
+		m_shader->begin();
+		m_shader->uniform("projection", m_projection);
+
+		glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
+
+		glEnableVertexAttribArray(m_shader->attribute("vert"));
+		glVertexAttribPointer(m_shader->attribute("vert"), 4, GL_FLOAT, GL_FALSE, sizeof(GLfloat), 0);
+
+		glm::vec2 size = m_texture->getSize();
+		m_texture->begin();
+		m_texture->enableBlending();
+		for (size_t i = 0; i < m_particleList.getCount(); ++i)
+		{
+			auto particle = m_particleList[i];
+
+			// first translate
+			glm::mat4 model = glm::translate(glm::mat4(), glm::vec3(particle.m_pos, 0.f));
+			// then move the origin of rotation to center of the quad
+			model = glm::translate(model, glm::vec3(0.5f * size.x, 0.5f * size.y, 0.f));
+			// then rotate
+			model = glm::rotate(model, -particle.m_dir, glm::vec3(0.f, 0.f, 1.f));
+			// move the origin back
+			model = glm::translate(model, glm::vec3(-0.5f * size.x, -0.5f * size.y, 0.f));
+			// scale
+			model = glm::scale(model, glm::vec3(size, 1.f));
+			m_shader->uniform("model", model);
+			m_shader->uniform("color", particle.m_color);
+
+			glDrawArrays(GL_TRIANGLES, 0, m_numOfPolys);
+		}
+		m_texture->disableBlending();
+		m_texture->end();
+
+		glDisableVertexAttribArray(m_shader->attribute("vert"));
+		glBindBuffer(GL_ARRAY_BUFFER, 0);
+		m_shader->end();
 	}
 
-	void manager::createParticle(gfx::texture* tex, const glm::vec2& pos, const glm::vec4& color, float duration, float scale, const state& state, float angle)
+	void manager::createParticle(const glm::vec2& pos, const glm::vec4& color, float duration, float scale, const state& state, float angle)
 	{
 		size_t index;
 
@@ -50,7 +121,6 @@ namespace particles
 		}
 
 		particle& ref = m_particleList[index];
-		//ref.m_texture = tex;
 		ref.m_pos = pos;
 		ref.m_color = color;
 

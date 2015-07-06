@@ -1,6 +1,6 @@
 #pragma once
 
-namespace particles
+namespace ps
 {
 	struct particle;
 
@@ -20,7 +20,7 @@ namespace particles
 		state() {}
 		state(const glm::vec2& vel, type t, float lenMultiplier = 1.f) : m_vel(vel), m_type(t), m_lenMultiplier(lenMultiplier) {}
 
-		state			getRandom(float min, float max);
+		static state	getRandom(float min, float max);
 		void			update(particle& p);
 	};
 }

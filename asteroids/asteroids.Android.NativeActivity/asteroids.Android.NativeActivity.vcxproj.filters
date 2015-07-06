@@ -142,7 +142,7 @@
     <ClInclude Include="src\framework\util\circularArray.h">
       <Filter>framework\util</Filter>
     </ClInclude>
-    <ClInclude Include="src\framework\particles\particles.h">
+    <ClInclude Include="src\framework\particles\ps.h">
       <Filter>framework\particles</Filter>
     </ClInclude>
   </ItemGroup>

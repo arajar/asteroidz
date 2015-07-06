@@ -33,7 +33,7 @@
 #include "framework/ecs/ecs.h"
 #include "framework/graphics/gfx.h"
 #include "framework/util/circularArray.h"
-#include "framework/particles/particles.h"
+#include "framework/particles/ps.h"
 #include "framework/util/file_utils.h"
 #include "framework/util/tweener.h"
 #include "framework/input/input.h"

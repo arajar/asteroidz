@@ -19,10 +19,9 @@ public:
 	virtual void render() override;
 
 protected:
-	ecs::entity m_ship;
-	ecs::entity m_missile;
-
+	ecs::entity		m_ship;
+	
 private:
-	ecs::world m_world;
-	const glm::vec2 m_screenSize;
+	ecs::world		m_world;
+	const glm::vec2	m_screenSize;
 };

@@ -1,6 +1,6 @@
 #pragma once
 
-namespace particles
+namespace ps
 {
 	struct state;
 	struct particle;
@@ -8,21 +8,26 @@ namespace particles
 	class manager
 	{
 	public:
-		manager(int capacity);
+		static void init(const glm::mat4& projection);
 
-		void update();
-		void render();
+		static void update();
+		static void render();
 
-		void createParticle(gfx::texture* tex, const glm::vec2& pos, const glm::vec4& color, float duration, float scale, const state& state, float angle = 0);
+		static void createParticle(const glm::vec2& pos, const glm::vec4& color, float duration, float scale, const state& state, float angle = 0);
 
-		void clear();
+		static void clear();
 
-		size_t getParticleCount();
-
-	protected:
-		void swap(util::circularArray<particle>& list, size_t index1, size_t index2);
+		static size_t getParticleCount();
 
 	protected:
-		util::circularArray<particle> m_particleList;
+		static void swap(util::circularArray<particle>& list, size_t index1, size_t index2);
+
+	protected:
+		static util::circularArray<particle> m_particleList;
+		static GLuint			m_vbo;
+		static gfx::shader*		m_shader;
+		static gfx::texture*	m_texture;
+		static int				m_numOfPolys;
+		static glm::mat4		m_projection;
 	};
 }

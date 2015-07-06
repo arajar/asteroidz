@@ -33,6 +33,8 @@ void stateMenu::start()
 	leftJoy->m_projection = projection;
 	rightJoy->m_projection = projection;
 
+	ps::manager::init(projection);
+
 	auto renderSystem = m_world.add<e::renderSystem>();
 	renderSystem->setWindowSize(m_screenSize);
 
@@ -115,6 +117,7 @@ void stateMenu::update(float deltaTime)
 	leftJoy->update(deltaTime);
 	rightJoy->update(deltaTime);
 	m_world(deltaTime);
+	ps::manager::update();
 }
 
 void stateMenu::render()
@@ -122,10 +125,11 @@ void stateMenu::render()
 	// render everything to the fbo
 	//fbo->begin();
 	m_world();
+	ps::manager::render();
 	//fbo->end();
 
-	// render the contents of the fbo with the postfx
-	//fbo->render();
+// render the contents of the fbo with the postfx
+//fbo->render();
 
 	leftJoy->render();
 	rightJoy->render();

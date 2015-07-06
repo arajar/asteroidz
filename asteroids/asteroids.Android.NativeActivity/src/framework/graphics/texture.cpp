@@ -18,8 +18,6 @@ namespace gfx
 		unsigned char header[54];
 		unsigned int dataPos = 0;
 		unsigned int imageSize = 0;
-		unsigned int width = 0;
-		unsigned int height = 0;
 		unsigned char* data = nullptr;
 
 		FILE* fp = util::android_fopen(path.c_str(), "rb");
@@ -63,10 +61,10 @@ namespace gfx
 		// read the info
 		dataPos = *(int*)&(header[0x0A]);
 		imageSize = *(int*)&(header[0x22]);
-		width = *(int*)&(header[0x12]);
-		height = *(int*)&(header[0x16]);
+		m_size.x = *(int*)&(header[0x12]);
+		m_size.y = *(int*)&(header[0x16]);
 
-		if (!imageSize) { imageSize = width * height * 3; } // 3 for every component (RGB)
+		if (!imageSize) { imageSize = m_size.x * m_size.y * 3; } // 3 for every component (RGB)
 		if (!dataPos) { dataPos = 54; } // we know that
 
 		data = new unsigned char[imageSize];
@@ -78,7 +76,7 @@ namespace gfx
 
 		begin();
 
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, m_size.x, m_size.y, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
 		delete[] data;
 
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
@@ -105,18 +103,17 @@ namespace gfx
 
 	void texture::enableBlending()
 	{
-		glDisable(GL_CULL_FACE);
-		glDisable(GL_DEPTH_TEST);
-
 		glEnable(GL_BLEND);
-		glBlendFunc(GL_ONE, GL_ONE);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE);
 	}
 
 	void texture::disableBlending()
 	{
 		glDisable(GL_BLEND);
+	}
 
-		glEnable(GL_DEPTH_TEST);
-		glEnable(GL_CULL_FACE);
+	glm::vec2 texture::getSize() const
+	{
+		return m_size;
 	}
 }

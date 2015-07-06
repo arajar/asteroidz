@@ -42,6 +42,17 @@ namespace e
 				move(p->pos, d->angle, a->acc, delta);
 			}
 
+			for (auto& en : m_world.search<position, entityType>())
+			{
+				auto t = m_world.get<entityType>(en);
+				if (t->type == EntityType::Player)
+				{
+					const auto p = m_world.get<position>(en);
+					const auto d = m_world.get<direction>(en);
+					addTrailParticles(p->pos, d->angle, delta);
+				}
+			}
+
 			// move the missiles
 			for (auto& en : m_world.search<missileArray>())
 			{
@@ -80,6 +91,43 @@ namespace e
 			{
 				pos.y += m_size.y;
 			}
+		}
+
+		void addTrailParticles(const glm::vec2& pos, float angle, float deltaTime)
+		{
+			glm::vec4 sideColor(0.78f, 0.15f, 0.04f, 1);
+			glm::vec4 midColor(1.0f, 0.73f, 0.12f, 1);
+			const float alpha = 0.7f;
+
+			glm::vec2 rot(pos.x + std::sin(angle), pos.y + std::cos(angle));
+
+			glm::vec2 vel(10.f);
+			glm::vec2 baseVel = vel * (-3.f / vel.length());
+			glm::vec2 perpVel = glm::vec2(baseVel.y, -baseVel.x) * (0.6f * std::sin(deltaTime * 10.f));
+
+			glm::vec2 finalPos = (pos + rot) / 2.f;
+
+			// middle particle stream
+			glm::vec2 velMid = baseVel;
+			ps::manager::createParticle(finalPos, glm::vec4(1, 1, 1, 1) * alpha, 30.0f, 1.f, ps::state(velMid, ps::state::type::Enemy));
+			ps::manager::createParticle(finalPos, midColor * alpha, 30.0f, 1.f, ps::state(velMid, ps::state::type::Enemy));
+
+			// side particle streams
+			//tVector2f vel1 = baseVel + perpVel + Extensions::nextVector2(0, 0.3f);
+			//tVector2f vel2 = baseVel - perpVel + Extensions::nextVector2(0, 0.3f);
+			//GameRoot::getInstance()->getParticleManager()->createParticle(Art::getInstance()->getLineParticle(),
+			//	pos, tColor4f(1, 1, 1, 1) * alpha, 60.0f, tVector2f(0.5f, 1),
+			//	ParticleState(vel1, ParticleState::kEnemy));
+			//GameRoot::getInstance()->getParticleManager()->createParticle(Art::getInstance()->getLineParticle(),
+			//	pos, tColor4f(1, 1, 1, 1) * alpha, 60.0f, tVector2f(0.5f, 1),
+			//	ParticleState(vel2, ParticleState::kEnemy));
+
+			//GameRoot::getInstance()->getParticleManager()->createParticle(Art::getInstance()->getGlow(),
+			//	pos, sideColor * alpha, 60.0f, tVector2f(0.5f, 1),
+			//	ParticleState(vel1, ParticleState::kEnemy));
+			//GameRoot::getInstance()->getParticleManager()->createParticle(Art::getInstance()->getGlow(),
+			//	pos, sideColor * alpha, 60.0f, tVector2f(0.5f, 1),
+			//	ParticleState(vel2, ParticleState::kEnemy));
 		}
 	};
 }

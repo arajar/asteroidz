@@ -1,7 +1,7 @@
 #include "state.h"
 #include "particle.h"
 
-namespace particles
+namespace ps
 {
 	state state::getRandom(float min, float max)
 	{

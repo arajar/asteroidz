@@ -1,13 +1,10 @@
 #pragma once
-#include "state.h"
 
-namespace particles
+namespace ps
 {
-	struct state;
-
 	struct particle
 	{
-		state					m_state;
+		struct state			m_state;
 		glm::vec4				m_color;
 		glm::vec2				m_pos;
 		float					m_scale = 1.f;

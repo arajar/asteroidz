@@ -29,12 +29,26 @@ namespace e
 
 				if (!typ->alive)
 				{
+					std::mt19937 rng(rd());
+					std::uniform_real_distribution<float> rand(1.f, 10.f);
+
 					// if the asteroid is destroyed, spawn a random number of chunks at the same position
 					// and remove the asteroid
 					if (typ->type == EntityType::Asteroid)
 					{
 						const auto pos = m_world.get<e::position>(en);
 						spawnAsteroidChunk(pos->pos);
+
+						for (int i = 0; i < 20; ++i)
+						{
+							float speed = 18.f * (1.f - 1 / rand(rng));
+							ps::state state = ps::state::getRandom(speed, speed);
+							state.m_type = ps::state::type::Enemy;
+
+							glm::vec4 color(1.0f, 0.0f, 0.0f, 1.f);
+							ps::manager::createParticle(pos->pos, color, 50.f, 1.5f, state);
+						}
+
 						m_world.removeEntity(en);
 					}
 					else if (typ->type == EntityType::AsteroidChunk)
