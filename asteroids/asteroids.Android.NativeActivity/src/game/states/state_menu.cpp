@@ -8,7 +8,7 @@
 #include "../entities/shootSystem.h"
 #include "../entities/debugRenderSystem.h"
 
-gfx::fbo* fbo;
+//gfx::fbo* fbo;
 
 input::virtualJoystick* leftJoy;
 input::virtualJoystick* rightJoy;
@@ -23,17 +23,19 @@ void stateMenu::start()
 	rightJoy->init();
 	rightJoy->m_position = { m_screenSize.x - 200, m_screenSize.y - 200 };
 
-	fbo = new gfx::fbo(glm::vec2(1804.f, 1080.f));
-	auto sh = new gfx::shader;
-	sh->vertex("circle.vs.glsl").pixel("circle.ps.glsl").link();
-	fbo->init(sh);
+	//fbo = new gfx::fbo(m_screenSize);
+	//auto sh = new gfx::shader;
+	//sh->vertex("circle.vs.glsl").pixel("circle.ps.glsl").link();
+	//fbo->init(sh);
 
 	glm::mat4 projection = glm::ortho(0.0f, m_screenSize.x, m_screenSize.y, 0.0f, -1.f, 1000.f);
 	projection *= glm::translate(glm::mat4(), glm::vec3(0, 0, -100));
 	leftJoy->m_projection = projection;
 	rightJoy->m_projection = projection;
 
-	m_world.add<e::renderSystem>();
+	auto renderSystem = m_world.add<e::renderSystem>();
+	renderSystem->setWindowSize(m_screenSize);
+
 	m_world.add<e::spawnSystem>();
 	m_world.add<e::collisionSystem>();
 #if defined DEBUG_COLLISIONS
@@ -55,7 +57,7 @@ void stateMenu::start()
 	auto typ = m_world.add<e::entityType>(m_ship);
 	auto col = m_world.add<e::collision>(m_ship);
 
-	pos->pos = glm::vec2(1804 / 2, 1080 / 2);
+	pos->pos = m_screenSize / 2.f;
 	dir->angle = 0;
 	acc->acc = 0.f;
 	rot->rotation = 0;
@@ -118,12 +120,12 @@ void stateMenu::update(float deltaTime)
 void stateMenu::render()
 {
 	// render everything to the fbo
-	fbo->begin();
+	//fbo->begin();
 	m_world();
-	fbo->end();
+	//fbo->end();
 
 	// render the contents of the fbo with the postfx
-	fbo->render();
+	//fbo->render();
 
 	leftJoy->render();
 	rightJoy->render();

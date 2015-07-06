@@ -1,6 +1,6 @@
 #pragma once
 
-namespace m
+namespace math
 {
 	template<typename T>
 	mat4_type<T> mat4_type<T>::inverse(const mat4_type<T>& m)
@@ -81,7 +81,7 @@ namespace m
 		const T c = std::cos(a);
 		const T s = std::sin(a);
 
-		auto axis(normalized(v));
+		auto axis(normalize(v));
 		auto temp((T(1) - c) * axis);
 
 		mat4_type<T> rot;

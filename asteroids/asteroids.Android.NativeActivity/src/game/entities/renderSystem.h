@@ -11,14 +11,14 @@ namespace e
 	{
 		renderSystem(ecs::world& world) : ecs::system(world) {}
 
+		glm::vec2 m_size;
+
+		void setWindowSize(const glm::vec2& size) { m_size = size; }
+
 		void operator()() const
 		{
-			//auto projection = m::ortho<float>(0.0f, 800.0f, 600.0f, 0.0f);
-			glm::mat4 projection = glm::ortho(0.0f, 1804.f, 1080.f, 0.0f, -1.f, 1000.f);
-
-			//glm::mat4 projection = glm::perspective(45.f, 1804.f / 1080.f, 0.001f, 1000000.f);
+			glm::mat4 projection = glm::ortho(0.0f, m_size.x, m_size.y, 0.0f, -1.f, 1000.f);
 			projection *= glm::translate(glm::mat4(), glm::vec3(0, 0, -100));
-			//projection *= glm::lookAt(glm::vec3(1804.f/2.f, 0, 1804/2.f), glm::vec3(0), glm::vec3(0, 1, 0));
 
 			for (auto& en : m_world.search<position, renderable>())
 			{
@@ -26,18 +26,19 @@ namespace e
 				const auto r = m_world.get<renderable>(en);
 
 				// take the current position and direction (angle) and create a transformation matrix
-				//const m::mat4 transform = m::mat4::translate(m::mat4(), m::vec3(p->pos));
 				glm::mat4 transform = glm::translate(glm::mat4(), glm::vec3(p->pos, 0.f)) * glm::scale(glm::mat4(), glm::vec3(-1));
 
 				const auto localRot = m_world.get<localRotation>(en);
 				const auto dir = m_world.get<direction>(en);
 				if (localRot)
 				{
+					// if the entity has a local rotation matrix, apply the rotation
 					transform *= glm::rotate(glm::mat4(), localRot->rotation, glm::vec3(0, 0, 1));
 				}
 
 				if (dir)
 				{
+					// if the entity has a direction, apply the direction
 					transform *= glm::rotate(glm::mat4(), dir->angle, glm::vec3(0, 0, 1));
 				}
 
@@ -62,6 +63,7 @@ namespace e
 				glBindBuffer(GL_ARRAY_BUFFER, 0);
 			}
 
+			// render the missiles
 			for (auto& en : m_world.search<missileArray>())
 			{
 				const auto m = m_world.get<missileArray>(en);
@@ -88,7 +90,7 @@ namespace e
 					r.shader->uniform("camera", projection);
 					glDrawArrays(r.type, 0, r.numOfPolys);
 				}
-				
+
 				r.shader->end();
 
 				glDisableVertexAttribArray(r.shader->attribute("vert"));

@@ -10,6 +10,9 @@ namespace e
 		spawnSystem(ecs::world& world) : ecs::system(world) {}
 
 		int minAsteroids = 5;
+		glm::vec2 m_size;
+
+		void setWindowSize(const glm::vec2& size) { m_size = size; }
 
 		void operator()(float delta)
 		{
@@ -17,6 +20,7 @@ namespace e
 			const auto& entities = m_world.search<e::entityType>();
 			for (auto& en : entities)
 			{
+				// checks which asteroids are still "alive"
 				const auto typ = m_world.get<e::entityType>(en);
 				if (typ->type == EntityType::Asteroid && typ->alive)
 				{
@@ -25,6 +29,8 @@ namespace e
 
 				if (!typ->alive)
 				{
+					// if the asteroid is destroyed, spawn a random number of chunks at the same position
+					// and remove the asteroid
 					if (typ->type == EntityType::Asteroid)
 					{
 						const auto pos = m_world.get<e::position>(en);
@@ -33,11 +39,13 @@ namespace e
 					}
 					else if (typ->type == EntityType::AsteroidChunk)
 					{
+						// if its a chunk, remove it directly without spawning anything
 						m_world.removeEntity(en);
 					}
 				}
 			}
 
+			// check there are at least the min number of asteroids spawned
 			while (num < minAsteroids)
 			{
 				spawnAsteroid();
@@ -48,12 +56,13 @@ namespace e
 	protected:
 		std::random_device rd;
 
+		// create an asteroid entity with random values
 		void spawnAsteroid()
 		{
 			std::mt19937 rng(rd());
 			std::uniform_real_distribution<float> angle(0.f, 360.f);
-			std::uniform_real_distribution<float> posX(0.f, 1804.f);
-			std::uniform_real_distribution<float> posY(0.f, 1080.f);
+			std::uniform_real_distribution<float> posX(0.f, m_size.x);
+			std::uniform_real_distribution<float> posY(0.f, m_size.y);
 			std::uniform_real_distribution<float> speed(2.f, 7.f);
 			std::uniform_int_distribution<int> rotAngle(-1, 1);
 
@@ -81,6 +90,7 @@ namespace e
 #endif
 		}
 
+		// create an asteroid chunk entity with random values
 		void spawnAsteroidChunk(const glm::vec2& parentPos)
 		{
 			std::mt19937 rng(rd());

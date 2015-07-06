@@ -1,0 +1,122 @@
+#include "texture.h"
+
+namespace gfx
+{
+	texture::~texture()
+	{
+		glDeleteTextures(1, &m_id);
+	}
+
+	bool texture::load(const std::string& path)
+	{
+		// if we already have a valid id, return
+		if (m_id != 0)
+		{
+			return true;
+		}
+
+		unsigned char header[54];
+		unsigned int dataPos = 0;
+		unsigned int imageSize = 0;
+		unsigned int width = 0;
+		unsigned int height = 0;
+		unsigned char* data = nullptr;
+
+		FILE* fp = util::android_fopen(path.c_str(), "rb");
+		if (!fp)
+		{
+			LOGE("Can't open %s", path.c_str());
+			return false;
+		}
+
+		// if less than 54 bytes are read, problem
+		if (fread(header, 1, 54, fp) != 54)
+		{
+			LOGE("BMP header error");
+			fclose(fp);
+			return false;
+		}
+
+		// a BMP file always begins with "BM"
+		if (header[0] != 'B' && header[1] != 'M')
+		{
+			LOGE("BMP header error");
+			fclose(fp);
+			return false;
+		}
+
+		// Make sure this is a 24bpp file
+		if (*(int*)&(header[0x1E]) != 0)
+		{
+			LOGE("BMP header error");
+			fclose(fp);
+			return false;
+		}
+
+		if (*(int*)&(header[0x1C]) != 24)
+		{
+			LOGE("BMP header error");
+			fclose(fp);
+			return false;
+		}
+
+		// read the info
+		dataPos = *(int*)&(header[0x0A]);
+		imageSize = *(int*)&(header[0x22]);
+		width = *(int*)&(header[0x12]);
+		height = *(int*)&(header[0x16]);
+
+		if (!imageSize) { imageSize = width * height * 3; } // 3 for every component (RGB)
+		if (!dataPos) { dataPos = 54; } // we know that
+
+		data = new unsigned char[imageSize];
+		fread(data, 1, imageSize, fp);
+		fclose(fp);
+
+		// create the opengl texture
+		glGenTextures(1, &m_id);
+
+		begin();
+
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+		delete[] data;
+
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+
+		end();
+
+		return true;
+	}
+
+	void texture::begin()
+	{
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, m_id);
+	}
+
+	void texture::end()
+	{
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, 0);
+	}
+
+	void texture::enableBlending()
+	{
+		glDisable(GL_CULL_FACE);
+		glDisable(GL_DEPTH_TEST);
+
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_ONE, GL_ONE);
+	}
+
+	void texture::disableBlending()
+	{
+		glDisable(GL_BLEND);
+
+		glEnable(GL_DEPTH_TEST);
+		glEnable(GL_CULL_FACE);
+	}
+}

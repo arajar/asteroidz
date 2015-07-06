@@ -5,8 +5,12 @@
 
 namespace input
 {
-	void virtualJoystick::init()
+	void virtualJoystick::init(float radius)
 	{
+		m_radius = radius;
+
+		m_thumbRadius = m_radius - (m_radius * 0.20f);
+
 		m_background = new e::renderable;
 		m_thumb = new e::renderable;
 

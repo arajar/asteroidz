@@ -16,6 +16,7 @@ namespace e
 
 		void operator()(float delta)
 		{
+			// apply the local rotation for the asteroids and asteroid chunks
 			for (auto& en : m_world.search<localRotation>())
 			{
 				auto r = m_world.get<localRotation>(en);
@@ -31,6 +32,7 @@ namespace e
 				}
 			}
 
+			// move all the entities (ship, asteroids and asteroid chunks)
 			for (auto& en : m_world.search<position, direction, acceleration>())
 			{
 				auto p = m_world.get<position>(en);
@@ -40,6 +42,7 @@ namespace e
 				move(p->pos, d->angle, a->acc, delta);
 			}
 
+			// move the missiles
 			for (auto& en : m_world.search<missileArray>())
 			{
 				auto missiles = m_world.get<missileArray>(en);
@@ -48,12 +51,11 @@ namespace e
 				{
 					auto& mis = missiles->missiles[i];
 					move(mis.pos, mis.dir, mis.acc, delta);
-
-					int a = 3;
 				}
 			}
 		}
 
+		// moves the entity and also checks the bounds of the map
 		void move(glm::vec2& pos, float dir, float acc, float delta)
 		{
 			pos.x += glm::sin(-dir) * acc * delta;
@@ -78,7 +80,6 @@ namespace e
 			{
 				pos.y += m_size.y;
 			}
-
 		}
 	};
 }

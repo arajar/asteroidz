@@ -14,7 +14,6 @@ namespace e
 
 	struct position : public ecs::component
 	{
-		//m::vec2 pos;
 		glm::vec2 pos;
 	};
 

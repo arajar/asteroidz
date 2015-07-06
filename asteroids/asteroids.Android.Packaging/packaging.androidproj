@@ -70,6 +70,11 @@
     <Content Include="assets\default.ps.glsl" />
     <Content Include="assets\default.vs.glsl" />
     <Content Include="assets\empty.txt" />
+    <Content Include="res\drawable-hdpi\icon.png" />
+    <Content Include="res\drawable-mdpi\icon.png" />
+    <Content Include="res\drawable-xhdpi\icon.png" />
+    <Content Include="res\drawable-xxhdpi\icon.png" />
+    <Content Include="res\drawable-xxxhdpi\icon.png" />
     <Content Include="res\values\strings.xml" />
     <AntBuildXml Include="build.xml" />
     <AndroidManifest Include="AndroidManifest.xml" />

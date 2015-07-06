@@ -22,6 +22,9 @@
     <ClCompile Include="src\android_native_app_glue.c" />
     <ClCompile Include="src\android_main.cpp" />
     <ClCompile Include="src\framework\graphics\fbo.cpp" />
+    <ClCompile Include="src\framework\graphics\texture.cpp" />
+    <ClCompile Include="src\framework\particles\manager.cpp" />
+    <ClCompile Include="src\framework\particles\state.cpp" />
     <ClCompile Include="src\framework\util\file_utils.cpp" />
     <ClCompile Include="src\framework\graphics\shader.cpp" />
     <ClCompile Include="src\framework\states\state_manager.cpp" />
@@ -35,12 +38,18 @@
     <ClInclude Include="src\framework\ecs.h" />
     <ClInclude Include="src\framework\graphics\fbo.h" />
     <ClInclude Include="src\framework\graphics\gfx.h" />
+    <ClInclude Include="src\framework\graphics\texture.h" />
     <ClInclude Include="src\framework\graphics\vertex.h" />
     <ClInclude Include="src\framework\input\input.h" />
     <ClInclude Include="src\framework\math\func.h" />
     <ClInclude Include="src\framework\math\mat4.h" />
     <ClInclude Include="src\framework\math\math.h" />
     <ClInclude Include="src\framework\math\vec4.h" />
+    <ClInclude Include="src\framework\particles\manager.h" />
+    <ClInclude Include="src\framework\particles\particle.h" />
+    <ClInclude Include="src\framework\particles\particles.h" />
+    <ClInclude Include="src\framework\particles\state.h" />
+    <ClInclude Include="src\framework\util\circularArray.h" />
     <ClInclude Include="src\framework\util\file_utils.h" />
     <ClInclude Include="src\framework\graphics\shader.h" />
     <ClInclude Include="src\framework\states\state.h" />
@@ -102,7 +111,7 @@
     <UseDebugLibraries>false</UseDebugLibraries>
     <AndroidAPILevel>android-19</AndroidAPILevel>
     <UseOfStl>c++_static</UseOfStl>
-    <ThumbMode>Disabled</ThumbMode>
+    <ThumbMode>Thumb</ThumbMode>
     <PlatformToolset>Clang_3_4</PlatformToolset>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />

@@ -28,6 +28,9 @@ bool Game::init(struct android_app* state)
 		m_initialized = true;
 	}
 
+	glm::vec3 derp;
+	glm::cross(derp, derp);
+
 	return m_applicationState != nullptr;
 }
 

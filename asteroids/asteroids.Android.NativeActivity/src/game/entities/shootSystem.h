@@ -4,14 +4,15 @@
 
 namespace e
 {
+	// shooting system
+	// takes the angle from the specified virtual joystick and shoots a missile in that direction
 	struct shootSystem : public ecs::system
 	{
 	private:
 		const input::virtualJoystick* m_joy = nullptr;
 		float m_timeSinceLastShoot = 0.f;
-		const float m_timeToShoot = 10.f; // we can shoot every 50 ms
+		const float m_timeToShoot = 10.f;
 		const float m_maxMissileTime = 50.f;
-		bool firstShoot = false;
 
 	public:
 		shootSystem(ecs::world& world) : ecs::system(world) {}
@@ -41,17 +42,15 @@ namespace e
 					}
 				}
 
-				if (m_joy->m_isTouching)
+				if (m_joy->m_isTouching && m_timeSinceLastShoot >= m_timeToShoot)
 				{
-					if (m_timeSinceLastShoot >= m_timeToShoot)
-					{
-						shoot(m, p->pos, m_joy->m_angle);
-						m_timeSinceLastShoot = 0.f;
-					}
+					shoot(m, p->pos, m_joy->m_angle);
+					m_timeSinceLastShoot = 0.f;
 				}
 			}
 		}
 
+		// creates a new missile in the specified position and direction
 		void shoot(missileArray* m, const glm::vec2& pos, float direction)
 		{
 			missileArray::data missile;

@@ -24,6 +24,7 @@ namespace e
 				const auto et1 = m_world.get<entityType>(e1);
 				const auto p1 = m_world.get<position>(e1);
 
+				// check collisions for asteroids vs missiles
 				for (auto& mis : m_world.search<missileArray>())
 				{
 					auto m = m_world.get<missileArray>(mis);
@@ -48,6 +49,7 @@ namespace e
 				}
 			}
 
+			// check asteroid vs ship collisions 
 			for (auto it = entities.begin(); it != entities.end(); it++)
 			{
 				ecs::entity e1 = *it;

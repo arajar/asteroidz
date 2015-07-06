@@ -45,7 +45,7 @@ namespace input
 		bool m_isTouching = false; // are we touching the joystick
 		Direction m_currentDirection = Direction::CENTER;
 
-		float m_radius = 160.f;
+		float m_radius;
 		float m_thumbRadius = 25.f;
 		float m_cuadrantSize = 20.f;
 		float m_scale = 1.f;
@@ -58,7 +58,7 @@ namespace input
 
 		virtualJoystick() : m_background(nullptr), m_thumb(nullptr) {}
 
-		void init();
+		void init(float radius = 160.f);
 		void handleInput(const input::TouchEvent& ev);
 		void render();
 		void update(float deltaTime);

@@ -5,16 +5,20 @@
 #if defined DEBUG_COLLISIONS
 namespace e
 {
-	// Render system:
+	// debug render system:
 	// Takes the position and direction of the entity and creates a transform matrix
 	// Takes also the vbo and the shader of the object and renders the entity
 	struct debugRenderSystem : public ecs::system
 	{
 		debugRenderSystem(ecs::world& world) : ecs::system(world) {}
 
+		glm::vec2 m_size;
+
+		void setWindowSize(const glm::vec2& size) { m_size = size; }
+
 		void operator()() const
 		{
-			glm::mat4 projection = glm::ortho(0.0f, 1804.f, 1080.f, 0.0f, -1.f, 1000.f);
+			glm::mat4 projection = glm::ortho(0.0f, m_size.x, m_size.y, 0.0f, -1.f, 1000.f);
 			projection *= glm::translate(glm::mat4(), glm::vec3(0, 0, -100));
 
 			for (auto& en : m_world.search<position, debugRenderable>())

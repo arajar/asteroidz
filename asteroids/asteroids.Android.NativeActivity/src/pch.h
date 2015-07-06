@@ -26,11 +26,14 @@
 #  define LOGV(...)  ((void)0)
 #endif
 
+// uncomment this line to debug collision detection
 //#define DEBUG_COLLISIONS
 
 #include "framework/math/math.h"
 #include "framework/ecs/ecs.h"
 #include "framework/graphics/gfx.h"
+#include "framework/util/circularArray.h"
+#include "framework/particles/particles.h"
 #include "framework/util/file_utils.h"
 #include "framework/util/tweener.h"
 #include "framework/input/input.h"
