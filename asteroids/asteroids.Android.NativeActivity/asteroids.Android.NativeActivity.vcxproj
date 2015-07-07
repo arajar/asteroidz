@@ -21,8 +21,8 @@
   <ItemGroup>
     <ClCompile Include="src\android_native_app_glue.c" />
     <ClCompile Include="src\android_main.cpp" />
-    <ClCompile Include="src\framework\graphics\fbo.cpp" />
     <ClCompile Include="src\framework\graphics\texture.cpp" />
+    <ClCompile Include="src\framework\graphics\texturedBox.cpp" />
     <ClCompile Include="src\framework\particles\manager.cpp" />
     <ClCompile Include="src\framework\particles\state.cpp" />
     <ClCompile Include="src\framework\util\file_utils.cpp" />
@@ -30,15 +30,16 @@
     <ClCompile Include="src\framework\states\state_manager.cpp" />
     <ClCompile Include="src\framework\input\virtual_joystick.cpp" />
     <ClCompile Include="src\game\game.cpp" />
+    <ClCompile Include="src\game\states\state_gameplay.cpp" />
     <ClCompile Include="src\game\states\state_menu.cpp" />
     <ClCompile Include="src\game\util\util.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\android_native_app_glue.h" />
     <ClInclude Include="src\framework\ecs.h" />
-    <ClInclude Include="src\framework\graphics\fbo.h" />
     <ClInclude Include="src\framework\graphics\gfx.h" />
     <ClInclude Include="src\framework\graphics\texture.h" />
+    <ClInclude Include="src\framework\graphics\texturedBox.h" />
     <ClInclude Include="src\framework\graphics\vertex.h" />
     <ClInclude Include="src\framework\input\input.h" />
     <ClInclude Include="src\framework\math\func.h" />
@@ -57,6 +58,7 @@
     <ClInclude Include="src\framework\math\vec2.h" />
     <ClInclude Include="src\framework\math\vec3.h" />
     <ClInclude Include="src\framework\input\virtual_joystick.h" />
+    <ClInclude Include="src\framework\util\singleton.h" />
     <ClInclude Include="src\framework\util\tweener.h" />
     <ClInclude Include="src\game\entities\collisionSystem.h" />
     <ClInclude Include="src\game\entities\debugRenderSystem.h" />
@@ -66,9 +68,8 @@
     <ClInclude Include="src\game\entities\shootSystem.h" />
     <ClInclude Include="src\game\entities\spawnSystem.h" />
     <ClInclude Include="src\game\game.h" />
-    <ClInclude Include="src\game\states\state_dead.h" />
-    <ClInclude Include="src\game\states\state_gameplay.h" />
     <ClInclude Include="src\game\states\state_menu.h" />
+    <ClInclude Include="src\game\states\state_gameplay.h" />
     <ClInclude Include="src\game\util\util.h" />
     <ClInclude Include="src\pch.h" />
   </ItemGroup>

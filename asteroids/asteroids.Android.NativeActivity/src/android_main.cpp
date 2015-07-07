@@ -9,18 +9,18 @@
 
 void android_main(struct android_app* state)
 {
-	Game game("asteroids");
+	new Game("asteroids");
 
-	state->userData = &game;
+	state->userData = Game::getInstance();
 	state->onAppCmd = &Game::handleCommands;
 	state->onInputEvent = &Game::handleInput;
 
 	// Pass the asset manager to the filesystem helper
 	util::setAssetMgr(state->activity->assetManager);
 
-	if (game.init(state))
+	if (Game::getInstance()->init(state))
 	{
-		game.run();
+		Game::getInstance()->run();
 	}
 }
 

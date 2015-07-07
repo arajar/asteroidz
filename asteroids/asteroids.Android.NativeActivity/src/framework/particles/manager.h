@@ -25,9 +25,8 @@ namespace ps
 	protected:
 		static util::circularArray<particle> m_particleList;
 		static GLuint			m_vbo;
-		static gfx::shader*		m_shader;
-		static gfx::texture*	m_texture;
-		static int				m_numOfPolys;
+		static gfx::shader		m_shader;
+		static gfx::texture		m_texture;
 		static glm::mat4		m_projection;
 	};
 }

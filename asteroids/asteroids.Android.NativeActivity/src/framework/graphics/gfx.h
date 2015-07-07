@@ -2,6 +2,6 @@
 
 #include "shader.h"
 #include "vertex.h"
-#include "fbo.h"
 #include "texture.h"
+#include "texturedBox.h"
 #include "util.h"

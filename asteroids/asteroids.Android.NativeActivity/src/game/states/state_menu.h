@@ -19,9 +19,9 @@ public:
 	virtual void render() override;
 
 protected:
-	ecs::entity		m_ship;
-	
+	gfx::texturedBox	m_background;
+	glm::mat4			m_projection;
+
 private:
-	ecs::world		m_world;
-	const glm::vec2	m_screenSize;
+	const glm::vec2		m_screenSize;
 };

@@ -33,7 +33,7 @@ namespace ps
 		}
 		else
 		{
-			p.m_scale = p.m_state.m_lenMultiplier * glm::min(glm::min(1.f, 0.2f * speed + 0.1f), alpha);
+			p.m_scale *= 0.94f;
 		}
 
 		p.m_dir = std::atan2(vel.x, vel.y);

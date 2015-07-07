@@ -54,7 +54,32 @@ namespace e
 					else if (typ->type == EntityType::AsteroidChunk)
 					{
 						// if its a chunk, remove it directly without spawning anything
+						const auto pos = m_world.get<e::position>(en);
+
+						for (int i = 0; i < 20; ++i)
+						{
+							float speed = 18.f * (1.f - 1 / rand(rng));
+							ps::state state = ps::state::getRandom(speed, speed);
+							state.m_type = ps::state::type::Enemy;
+
+							glm::vec4 color(0.8f, 0.2f, 0.2f, 1.f);
+							ps::manager::createParticle(pos->pos, color, 40.f, 1.0f, state);
+						}
+
 						m_world.removeEntity(en);
+					}
+					else if (typ->type == EntityType::Player)
+					{
+						const auto pos = m_world.get<e::position>(en);
+						for (int i = 0; i < 40; ++i)
+						{
+							float speed = 18.f * (1.f - 1 / rand(rng));
+							ps::state state = ps::state::getRandom(speed, speed);
+							state.m_type = ps::state::type::Enemy;
+
+							glm::vec4 color(0.8f, 0.2f, 0.2f, 1.f);
+							ps::manager::createParticle(pos->pos, color, 70.f, 1.0f, state);
+						}
 					}
 				}
 			}
@@ -109,7 +134,7 @@ namespace e
 		{
 			std::mt19937 rng(rd());
 			std::uniform_real_distribution<float> angle(0.f, 360.f);
-			std::uniform_real_distribution<float> speed(5.f, 8.f);
+			std::uniform_real_distribution<float> speed(5.f, 7.f);
 			std::uniform_int_distribution<int> rotAngle(-1, 1);
 			std::uniform_int_distribution<int> num(1, 3);
 

@@ -70,9 +70,11 @@
     <Content Include="assets\default.ps.glsl" />
     <Content Include="assets\default.vs.glsl" />
     <Content Include="assets\empty.txt" />
-    <Content Include="assets\glow.bmp" />
+    <Content Include="assets\game_background.bmp" />
+    <Content Include="assets\menu_background.bmp" />
     <Content Include="assets\particle.ps.glsl" />
     <Content Include="assets\particle.vs.glsl" />
+    <Content Include="assets\particletexture.bmp" />
     <Content Include="res\drawable-hdpi\icon.png" />
     <Content Include="res\drawable-mdpi\icon.png" />
     <Content Include="res\drawable-xhdpi\icon.png" />

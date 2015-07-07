@@ -1,5 +1,12 @@
 #include "texture.h"
 
+#ifndef GL_BGR
+#define GL_BGR 0x80E0
+#endif
+#ifndef GL_BGRA
+#define GL_BGRA GL_BGRA_EXT
+#endif
+
 namespace gfx
 {
 	texture::~texture()
@@ -73,6 +80,16 @@ namespace gfx
 
 		// create the opengl texture
 		glGenTextures(1, &m_id);
+
+		// convert from BGR to RGB
+		unsigned char ubTemp;
+		for (long x = 0; x < imageSize; x += 3)
+		{
+
+			ubTemp = data[x];
+			data[x] = data[x + 2];
+			data[x + 2] = ubTemp;
+		}
 
 		begin();
 

@@ -18,14 +18,8 @@
     <ClCompile Include="src\framework\input\virtual_joystick.cpp">
       <Filter>framework\input</Filter>
     </ClCompile>
-    <ClCompile Include="src\game\states\state_menu.cpp">
-      <Filter>game\states</Filter>
-    </ClCompile>
     <ClCompile Include="src\game\util\util.cpp">
       <Filter>game\util</Filter>
-    </ClCompile>
-    <ClCompile Include="src\framework\graphics\fbo.cpp">
-      <Filter>framework\graphics</Filter>
     </ClCompile>
     <ClCompile Include="src\framework\graphics\texture.cpp">
       <Filter>framework\graphics</Filter>
@@ -35,6 +29,15 @@
     </ClCompile>
     <ClCompile Include="src\framework\particles\manager.cpp">
       <Filter>framework\particles</Filter>
+    </ClCompile>
+    <ClCompile Include="src\framework\graphics\texturedBox.cpp">
+      <Filter>framework\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\states\state_gameplay.cpp">
+      <Filter>game\states</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\states\state_menu.cpp">
+      <Filter>game\states</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -67,15 +70,6 @@
     <ClInclude Include="src\framework\ecs.h">
       <Filter>framework\ecs</Filter>
     </ClInclude>
-    <ClInclude Include="src\game\states\state_menu.h">
-      <Filter>game\states</Filter>
-    </ClInclude>
-    <ClInclude Include="src\game\states\state_gameplay.h">
-      <Filter>game\states</Filter>
-    </ClInclude>
-    <ClInclude Include="src\game\states\state_dead.h">
-      <Filter>game\states</Filter>
-    </ClInclude>
     <ClInclude Include="src\framework\math\vec4.h">
       <Filter>framework\math</Filter>
     </ClInclude>
@@ -101,9 +95,6 @@
       <Filter>game\entities</Filter>
     </ClInclude>
     <ClInclude Include="src\framework\graphics\vertex.h">
-      <Filter>framework\graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="src\framework\graphics\fbo.h">
       <Filter>framework\graphics</Filter>
     </ClInclude>
     <ClInclude Include="src\game\util\util.h">
@@ -144,6 +135,18 @@
     </ClInclude>
     <ClInclude Include="src\framework\particles\ps.h">
       <Filter>framework\particles</Filter>
+    </ClInclude>
+    <ClInclude Include="src\framework\graphics\texturedBox.h">
+      <Filter>framework\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\framework\util\singleton.h">
+      <Filter>framework\util</Filter>
+    </ClInclude>
+    <ClInclude Include="src\game\states\state_gameplay.h">
+      <Filter>game\states</Filter>
+    </ClInclude>
+    <ClInclude Include="src\game\states\state_menu.h">
+      <Filter>game\states</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

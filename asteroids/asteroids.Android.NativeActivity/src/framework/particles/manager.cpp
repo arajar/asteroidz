@@ -3,18 +3,16 @@
 
 namespace ps
 {
-	util::circularArray<particle> manager::m_particleList(1024 * 20);
+	util::circularArray<particle> manager::m_particleList(300);
 	GLuint			manager::m_vbo = 0;
-	gfx::shader*	manager::m_shader = nullptr;
-	gfx::texture*	manager::m_texture = nullptr;
-	int				manager::m_numOfPolys = 0;
+	gfx::shader		manager::m_shader;
+	gfx::texture	manager::m_texture;
 	glm::mat4		manager::m_projection;
 
 	void manager::init(const glm::mat4& projection)
 	{
 		m_projection = projection;
-		m_shader = new gfx::shader;
-		m_shader->vertex("particle.vs.glsl").pixel("particle.ps.glsl").link();
+		m_shader.vertex("particle.vs.glsl").pixel("particle.ps.glsl").link();
 
 		GLfloat vertices[] = {
 			//  pos       tex
@@ -27,21 +25,18 @@ namespace ps
 				1.f, 0.f, 1.f, 0.f
 		};
 
-		m_numOfPolys = sizeof(vertices) / sizeof(GLfloat);
-
 		// create the vbo and bind the attributes
 		glGenBuffers(1, &m_vbo);
 		glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
 		glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
-		glEnableVertexAttribArray(m_shader->attribute("vert"));
-		glVertexAttribPointer(m_shader->attribute("vert"), 4, GL_FLOAT, GL_FALSE, sizeof(GLfloat), 0);
-		glDisableVertexAttribArray(m_shader->attribute("vert"));
+		glEnableVertexAttribArray(m_shader.attribute("vert"));
+		glVertexAttribPointer(m_shader.attribute("vert"), 4, GL_FLOAT, GL_FALSE, 4 * sizeof(GLfloat), 0);
+		glDisableVertexAttribArray(m_shader.attribute("vert"));
 
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 
-		m_texture = new gfx::texture;
-		m_texture->load("glow.bmp");
+		m_texture.load("particletexture.bmp");
 	}
 
 	void manager::update()
@@ -67,17 +62,18 @@ namespace ps
 
 	void manager::render()
 	{
-		m_shader->begin();
-		m_shader->uniform("projection", m_projection);
+		m_shader.begin();
+		m_shader.uniform("projection", m_projection);
 
 		glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
 
-		glEnableVertexAttribArray(m_shader->attribute("vert"));
-		glVertexAttribPointer(m_shader->attribute("vert"), 4, GL_FLOAT, GL_FALSE, sizeof(GLfloat), 0);
+		glEnableVertexAttribArray(m_shader.attribute("vert"));
+		glVertexAttribPointer(m_shader.attribute("vert"), 4, GL_FLOAT, GL_FALSE, 4 * sizeof(GLfloat), 0);
 
-		glm::vec2 size = m_texture->getSize();
-		m_texture->begin();
-		m_texture->enableBlending();
+		// future optimization: batch the particle rendering
+		glm::vec2 size = m_texture.getSize();
+		m_texture.begin();
+		m_texture.enableBlending();
 		for (size_t i = 0; i < m_particleList.getCount(); ++i)
 		{
 			auto particle = m_particleList[i];
@@ -91,18 +87,18 @@ namespace ps
 			// move the origin back
 			model = glm::translate(model, glm::vec3(-0.5f * size.x, -0.5f * size.y, 0.f));
 			// scale
-			model = glm::scale(model, glm::vec3(size, 1.f));
-			m_shader->uniform("model", model);
-			m_shader->uniform("color", particle.m_color);
+			model = glm::scale(model, glm::vec3(size * particle.m_scale, 1.f));
+			m_shader.uniform("model", model);
+			m_shader.uniform("color", particle.m_color);
 
-			glDrawArrays(GL_TRIANGLES, 0, m_numOfPolys);
+			glDrawArrays(GL_TRIANGLES, 0, 6);
 		}
-		m_texture->disableBlending();
-		m_texture->end();
+		m_texture.disableBlending();
+		m_texture.end();
 
-		glDisableVertexAttribArray(m_shader->attribute("vert"));
+		glDisableVertexAttribArray(m_shader.attribute("vert"));
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
-		m_shader->end();
+		m_shader.end();
 	}
 
 	void manager::createParticle(const glm::vec2& pos, const glm::vec4& color, float duration, float scale, const state& state, float angle)

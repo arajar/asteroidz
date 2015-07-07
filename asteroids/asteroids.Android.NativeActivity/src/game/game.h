@@ -2,8 +2,9 @@
 
 #include <string>
 #include "../framework/states/state_manager.h"
+#include "../framework/util/singleton.h"
 
-class Game
+class Game : public Singleton<Game>
 {
 public:
 	static const int FPS;
@@ -27,6 +28,8 @@ public:
 
 public:
 	void update(float dt);
+
+	states::manager* getStateManager() const { return m_stateMgr; }
 
 public: // callbacks
 	static void handleCommands(struct android_app* app, int32_t cmd);

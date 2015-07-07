@@ -55,7 +55,7 @@ namespace e
 		{
 			missileArray::data missile;
 			missile.pos = pos;
-			missile.acc = 12.f;
+			missile.acc = 15.f;
 			missile.dir = -direction;
 			missile.time = 0.f;
 

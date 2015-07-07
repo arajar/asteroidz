@@ -85,13 +85,14 @@ namespace e
 					const float totalRadius = c1->colRadius + c2->colRadius;
 					if (length <= totalRadius)
 					{
-						if (et1->type != EntityType::Player)
+						// uncomment this line to make the player immortal, useful to debug
+						//if (et1->type != EntityType::Player)
 						{
 							c1->collided = true;
 							collidedEntities.push_back(e1);
 						}
 
-						if (et2->type != EntityType::Player)
+						//if (et2->type != EntityType::Player)
 						{
 							c2->collided = true;
 							collidedEntities.push_back(e2);
@@ -118,11 +119,7 @@ namespace e
 				auto type = m_world.get<entityType>(e);
 				if (type)
 				{
-					if (type->type == EntityType::Asteroid
-						|| type->type == EntityType::AsteroidChunk)
-					{
-						type->alive = false;
-					}
+					type->alive = false;
 				}
 			}
 		}
