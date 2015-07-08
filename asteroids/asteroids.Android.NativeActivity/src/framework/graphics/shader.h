@@ -27,10 +27,10 @@ namespace gfx
 
 		void uniform(const char* name, int v) const;
 		void uniform(const char* name, float v) const;
-		void uniform(const char* name, const glm::vec2& v) const;
-		void uniform(const char* name, const glm::vec3& v) const;
-		void uniform(const char* name, const glm::vec4& v) const;
-		void uniform(const char* name, const glm::mat4& m, bool transpose = GL_FALSE) const;
+		void uniform(const char* name, const math::vec2& v) const;
+		void uniform(const char* name, const math::vec3& v) const;
+		void uniform(const char* name, const math::vec4& v) const;
+		void uniform(const char* name, const math::mat4& m, bool transpose = GL_FALSE) const;
 
 	protected:
 		shader& add(ShaderType type, const std::string& source);

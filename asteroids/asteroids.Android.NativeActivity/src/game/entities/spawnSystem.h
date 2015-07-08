@@ -10,9 +10,9 @@ namespace e
 		spawnSystem(ecs::world& world) : ecs::system(world) {}
 
 		int minAsteroids = 5;
-		glm::vec2 m_size;
+		math::vec2 m_size;
 
-		void setWindowSize(const glm::vec2& size) { m_size = size; }
+		void setWindowSize(const math::vec2& size) { m_size = size; }
 
 		void operator()(float delta)
 		{
@@ -45,7 +45,7 @@ namespace e
 							ps::state state = ps::state::getRandom(speed, speed);
 							state.m_type = ps::state::type::Enemy;
 
-							glm::vec4 color(1.0f, 0.0f, 0.0f, 1.f);
+							math::vec4 color(1.0f, 0.0f, 0.0f, 1.f);
 							ps::manager::createParticle(pos->pos, color, 50.f, 1.5f, state);
 						}
 
@@ -62,7 +62,7 @@ namespace e
 							ps::state state = ps::state::getRandom(speed, speed);
 							state.m_type = ps::state::type::Enemy;
 
-							glm::vec4 color(0.8f, 0.2f, 0.2f, 1.f);
+							math::vec4 color(0.8f, 0.2f, 0.2f, 1.f);
 							ps::manager::createParticle(pos->pos, color, 40.f, 1.0f, state);
 						}
 
@@ -77,7 +77,7 @@ namespace e
 							ps::state state = ps::state::getRandom(speed, speed);
 							state.m_type = ps::state::type::Enemy;
 
-							glm::vec4 color(0.8f, 0.2f, 0.2f, 1.f);
+							math::vec4 color(0.8f, 0.2f, 0.2f, 1.f);
 							ps::manager::createParticle(pos->pos, color, 70.f, 1.0f, state);
 						}
 					}
@@ -115,7 +115,7 @@ namespace e
 			auto rot = m_world.add<e::localRotation>(asteroid);
 			auto typ = m_world.add<e::entityType>(asteroid);
 
-			pos->pos = glm::vec2(posX(rng), posY(rng));
+			pos->pos = math::vec2(posX(rng), posY(rng));
 			dir->angle = angle(rng);
 			col->colRadius = 50.f;
 			util::createAsteroid(ren, 10.f);
@@ -130,7 +130,7 @@ namespace e
 		}
 
 		// create an asteroid chunk entity with random values
-		void spawnAsteroidChunk(const glm::vec2& parentPos)
+		void spawnAsteroidChunk(const math::vec2& parentPos)
 		{
 			std::mt19937 rng(rd());
 			std::uniform_real_distribution<float> angle(0.f, 360.f);

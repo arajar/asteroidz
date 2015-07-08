@@ -12,14 +12,14 @@ namespace e
 	{
 		debugRenderSystem(ecs::world& world) : ecs::system(world) {}
 
-		glm::vec2 m_size;
+		math::vec2 m_size;
 
-		void setWindowSize(const glm::vec2& size) { m_size = size; }
+		void setWindowSize(const math::vec2& size) { m_size = size; }
 
 		void operator()() const
 		{
-			glm::mat4 projection = glm::ortho(0.0f, m_size.x, m_size.y, 0.0f, -1.f, 1000.f);
-			projection *= glm::translate(glm::mat4(), glm::vec3(0, 0, -100));
+			math::mat4 projection = math::ortho(0.0f, m_size.x, m_size.y, 0.0f, -1.f, 1000.f);
+			projection *= math::translate(math::mat4(), math::vec3(0, 0, -100));
 
 			for (auto& en : m_world.search<position, debugRenderable>())
 			{
@@ -27,7 +27,7 @@ namespace e
 				const auto r = m_world.get<debugRenderable>(en);
 
 				// take the current position and direction (angle) and create a transformation matrix
-				glm::mat4 transform = glm::translate(glm::mat4(), glm::vec3(p->pos, 0.f)) * glm::scale(glm::mat4(), glm::vec3(-1));
+				math::mat4 transform = math::translate(math::mat4(), math::vec3(p->pos, 0.f)) * math::scale(math::mat4(), math::vec3(-1));
 
 				// future optimization: bind the shader only once to avoid binding and unbinding the same shader
 				glBindBuffer(GL_ARRAY_BUFFER, r->vbo);
@@ -38,7 +38,7 @@ namespace e
 				r->shader->begin();
 				r->shader->uniform("model", transform);
 				r->shader->uniform("camera", projection);
-				r->shader->uniform("finalColor", glm::vec4(1.f));
+				r->shader->uniform("finalColor", math::vec4(1.f));
 				glDrawArrays(r->type, 0, r->numOfPolys);
 				r->shader->end();
 

@@ -191,8 +191,5 @@
     <None Include="src\framework\math\func.inl">
       <Filter>framework\math</Filter>
     </None>
-    <None Include="src\framework\math\mat4.inl">
-      <Filter>framework\math</Filter>
-    </None>
   </ItemGroup>
 </Project>

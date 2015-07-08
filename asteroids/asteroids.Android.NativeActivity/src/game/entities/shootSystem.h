@@ -51,7 +51,7 @@ namespace e
 		}
 
 		// creates a new missile in the specified position and direction
-		void shoot(missileArray* m, const glm::vec2& pos, float direction)
+		void shoot(missileArray* m, const math::vec2& pos, float direction)
 		{
 			missileArray::data missile;
 			missile.pos = pos;

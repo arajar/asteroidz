@@ -8,12 +8,12 @@ namespace ps
 	class manager
 	{
 	public:
-		static void init(const glm::mat4& projection);
+		static void init(const math::mat4& projection);
 
 		static void update();
 		static void render();
 
-		static void createParticle(const glm::vec2& pos, const glm::vec4& color, float duration, float scale, const state& state, float angle = 0);
+		static void createParticle(const math::vec2& pos, const math::vec4& color, float duration, float scale, const state& state, float angle = 0);
 
 		static void clear();
 
@@ -27,6 +27,6 @@ namespace ps
 		static GLuint			m_vbo;
 		static gfx::shader		m_shader;
 		static gfx::texture		m_texture;
-		static glm::mat4		m_projection;
+		static math::mat4		m_projection;
 	};
 }

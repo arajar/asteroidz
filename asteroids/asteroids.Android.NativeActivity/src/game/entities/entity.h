@@ -14,7 +14,7 @@ namespace e
 
 	struct position : public ecs::component
 	{
-		glm::vec2 pos;
+		math::vec2 pos;
 	};
 
 	struct localRotation : public ecs::component
@@ -70,7 +70,7 @@ namespace e
 
 		struct data
 		{
-			glm::vec2		pos = { 0,0 };
+			math::vec2		pos = { 0,0 };
 			float			dir = 0.f;
 			float			acc = 0.f;
 			float			time = 0.f;

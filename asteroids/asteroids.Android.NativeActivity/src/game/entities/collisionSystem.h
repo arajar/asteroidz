@@ -33,7 +33,7 @@ namespace e
 					{
 						auto missile = m->missiles[i];
 						const auto distance = p1->pos - missile.pos;
-						const float length = glm::length(distance);
+						const float length = math::length(distance);
 						const float totalRadius = c1->colRadius + m->radius;
 						if (length <= totalRadius)
 						{
@@ -81,7 +81,7 @@ namespace e
 					const auto p2 = m_world.get<position>(e2);
 
 					const auto distance = p1->pos - p2->pos;
-					const float length = glm::length(distance);
+					const float length = math::length(distance);
 					const float totalRadius = c1->colRadius + c2->colRadius;
 					if (length <= totalRadius)
 					{

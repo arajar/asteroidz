@@ -14,8 +14,8 @@ namespace util
 
 		for (int a = 0, index = 0; a < 360; a += 360 / sides, ++index)
 		{
-			float angle = glm::radians((float)a);
-			triangle_attributes[index] = { {glm::cos(angle) * radius, glm::sin(angle) * radius, 0.f}, {1, 1, 1} };
+			float angle = math::toRad((float)a);
+			triangle_attributes[index] = { {std::cos(angle) * radius, std::sin(angle) * radius, 0.f}, {1, 1, 1} };
 		}
 
 		r->numOfPolys = sizeof(triangle_attributes) / sizeof(gfx::vertex);
@@ -45,8 +45,8 @@ namespace util
 
 		for (int a = 0, index = 0; a < 360; a += 360 / sides, ++index)
 		{
-			float angle = glm::radians((float)a);
-			triangle_attributes[index] = { { glm::cos(angle) * radius, glm::sin(angle) * radius, 0.f },{ 1, 1, 1 } };
+			float angle = math::radians((float)a);
+			triangle_attributes[index] = { { math::cos(angle) * radius, math::sin(angle) * radius, 0.f },{ 1, 1, 1 } };
 		}
 
 		r->numOfPolys = sizeof(triangle_attributes) / sizeof(gfx::vertex);

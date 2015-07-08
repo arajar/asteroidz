@@ -7,7 +7,7 @@ namespace gfx
 		~texturedBox();
 
 		void init(const std::string& name);
-		void render(const glm::mat4& projection);
+		void render(const math::mat4& projection);
 
 	protected:
 		gfx::shader*	m_shader = nullptr;

@@ -7,17 +7,10 @@ namespace math
 	template<typename T>
 	struct vec2_type
 	{
-		union
-		{
-			T xy[2];
-			T uv[2];
-			T rg[2];
-			struct { T x; T y; };
-			struct { T u; T v; };
-			struct { T r; T g; };
-		};
+		union { T x; T u; };
+		union { T y; T v; };
 
-		vec2_type() : x(), y() {}
+		vec2_type() : x(0), y(0) {}
 		vec2_type(T value) : x(value), y(value) {}
 		vec2_type(T x, T y) : x(x), y(y) {}
 		vec2_type(const vec2_type<T>& other) : x(other.x), y(other.y) {}

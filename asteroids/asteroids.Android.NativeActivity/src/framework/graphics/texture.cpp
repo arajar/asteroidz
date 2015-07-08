@@ -129,7 +129,7 @@ namespace gfx
 		glDisable(GL_BLEND);
 	}
 
-	glm::vec2 texture::getSize() const
+	math::vec2 texture::getSize() const
 	{
 		return m_size;
 	}

@@ -9,27 +9,27 @@ namespace ps
 		std::mt19937 rng(rd());
 		std::uniform_real_distribution<float> rand;
 
-		float t = rand(rng) * 2.f * glm::pi<float>();
+		float t = rand(rng) * 2.f * math::pi<float>();
 		float len = rand(rng) * (max - min) + min;
 
-		return state(glm::vec2(len * std::cos(t), len * sin(t)), type::None, 1);
+		return state(math::vec2(len * std::cos(t), len * sin(t)), type::None, 1);
 	}
 
 	void state::update(particle& p)
 	{
-		glm::vec2 vel = p.m_state.m_vel;
-		float speed = vel.length();
+		math::vec2 vel = p.m_state.m_vel;
+		float speed = math::length(vel);
 
 		p.m_pos += vel;
 
-		float alpha = glm::min(1.f, glm::min(p.m_percentLife * 2, speed * 1.f));
+		float alpha = std::min(1.f, std::min(p.m_percentLife * 2, speed * 1.f));
 		alpha *= alpha;
 
 		p.m_color.a = alpha;
 
 		if (p.m_state.m_type == type::Bullet)
 		{
-			p.m_scale = p.m_state.m_lenMultiplier * glm::min(glm::min(1.f, 0.1f * speed + 0.1f), alpha);
+			p.m_scale = p.m_state.m_lenMultiplier * std::min(std::min(1.f, 0.1f * speed + 0.1f), alpha);
 		}
 		else
 		{

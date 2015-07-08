@@ -8,11 +8,11 @@ namespace e
 	// Modifies the position of the entity by taking the angle, acceleration and delta time
 	struct movementSystem : public ecs::system
 	{
-		glm::vec2 m_size;
+		math::vec2 m_size;
 
 		movementSystem(ecs::world& world) : ecs::system(world) {}
 
-		void setWindowSize(const glm::vec2& size) { m_size = size; }
+		void setWindowSize(const math::vec2& size) { m_size = size; }
 
 		void operator()(float delta)
 		{
@@ -56,10 +56,10 @@ namespace e
 		}
 
 		// moves the entity and also checks the bounds of the map
-		void move(glm::vec2& pos, float dir, float acc, float delta)
+		void move(math::vec2& pos, float dir, float acc, float delta)
 		{
-			pos.x += glm::sin(-dir) * acc * delta;
-			pos.y += glm::cos(-dir) * acc * delta;
+			pos.x += std::sin(-dir) * acc * delta;
+			pos.y += std::cos(-dir) * acc * delta;
 
 			if (pos.x > m_size.x)
 			{

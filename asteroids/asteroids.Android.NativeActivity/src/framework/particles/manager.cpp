@@ -7,9 +7,9 @@ namespace ps
 	GLuint			manager::m_vbo = 0;
 	gfx::shader		manager::m_shader;
 	gfx::texture	manager::m_texture;
-	glm::mat4		manager::m_projection;
+	math::mat4		manager::m_projection;
 
-	void manager::init(const glm::mat4& projection)
+	void manager::init(const math::mat4& projection)
 	{
 		m_projection = projection;
 		m_shader.vertex("particle.vs.glsl").pixel("particle.ps.glsl").link();
@@ -71,7 +71,7 @@ namespace ps
 		glVertexAttribPointer(m_shader.attribute("vert"), 4, GL_FLOAT, GL_FALSE, 4 * sizeof(GLfloat), 0);
 
 		// future optimization: batch the particle rendering
-		glm::vec2 size = m_texture.getSize();
+		math::vec2 size = m_texture.getSize();
 		m_texture.begin();
 		m_texture.enableBlending();
 		for (size_t i = 0; i < m_particleList.getCount(); ++i)
@@ -79,15 +79,15 @@ namespace ps
 			auto particle = m_particleList[i];
 
 			// first translate
-			glm::mat4 model = glm::translate(glm::mat4(), glm::vec3(particle.m_pos, 0.f));
+			math::mat4 model = math::translate(math::mat4(), math::vec3(particle.m_pos.x, particle.m_pos.y, 0.f));
 			// then move the origin of rotation to center of the quad
-			model = glm::translate(model, glm::vec3(0.5f * size.x, 0.5f * size.y, 0.f));
+			model = math::translate(model, math::vec3(0.5f * size.x, 0.5f * size.y, 0.f));
 			// then rotate
-			model = glm::rotate(model, -particle.m_dir, glm::vec3(0.f, 0.f, 1.f));
+			model = math::rotate(model, -particle.m_dir, math::vec3(0.f, 0.f, 1.f));
 			// move the origin back
-			model = glm::translate(model, glm::vec3(-0.5f * size.x, -0.5f * size.y, 0.f));
+			model = math::translate(model, math::vec3(-0.5f * size.x, -0.5f * size.y, 0.f));
 			// scale
-			model = glm::scale(model, glm::vec3(size * particle.m_scale, 1.f));
+			model = math::scale(model, math::vec3(size.x * particle.m_scale, size.y * particle.m_scale, 1.f));
 			m_shader.uniform("model", model);
 			m_shader.uniform("color", particle.m_color);
 
@@ -101,7 +101,7 @@ namespace ps
 		m_shader.end();
 	}
 
-	void manager::createParticle(const glm::vec2& pos, const glm::vec4& color, float duration, float scale, const state& state, float angle)
+	void manager::createParticle(const math::vec2& pos, const math::vec4& color, float duration, float scale, const state& state, float angle)
 	{
 		size_t index;
 

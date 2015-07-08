@@ -20,8 +20,8 @@ void stateGameplay::start()
 	m_rightJoy.init();
 	m_rightJoy.m_position = { m_screenSize.x - 200, m_screenSize.y - 200 };
 
-	m_projection = glm::ortho(0.0f, m_screenSize.x, m_screenSize.y, 0.0f, -1.f, 1000.f);
-	m_projection *= glm::translate(glm::mat4(), glm::vec3(0, 0, -100));
+	m_projection = math::ortho(0.0f, m_screenSize.x, m_screenSize.y, 0.0f, -1.f, 1000.f);
+	m_projection *= math::translate(math::mat4(), math::vec3(0, 0, -100));
 	
 	m_leftJoy.m_projection = m_projection;
 	m_rightJoy.m_projection = m_projection;

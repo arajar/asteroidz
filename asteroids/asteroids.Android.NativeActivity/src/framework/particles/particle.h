@@ -5,8 +5,8 @@ namespace ps
 	struct particle
 	{
 		struct state			m_state;
-		glm::vec4				m_color;
-		glm::vec2				m_pos;
+		math::vec4				m_color;
+		math::vec2				m_pos;
 		float					m_scale = 1.f;
 		float					m_dir;
 		float					m_duration;

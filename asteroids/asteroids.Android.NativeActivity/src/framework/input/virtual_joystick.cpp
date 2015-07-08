@@ -77,11 +77,11 @@ namespace input
 
 		if (distance > m_radius)
 		{
-			m_thumbPosition.x = m_position.x + glm::sin(m_angle) * m_radius;
-			m_thumbPosition.y = m_position.y + glm::cos(m_angle) * m_radius;
+			m_thumbPosition.x = m_position.x + std::sin(m_angle) * m_radius;
+			m_thumbPosition.y = m_position.y + std::cos(m_angle) * m_radius;
 		}
 
-		float dist = glm::clamp(distance, 0.f, m_radius);
+		float dist = math::clamp(distance, 0.f, m_radius);
 		m_acceleration = dist / m_radius;
 	}
 
@@ -98,9 +98,9 @@ namespace input
 		m_alpha.update(deltaTime);
 	}
 
-	void virtualJoystick::draw(const e::renderable& r, const glm::vec2& pos)
+	void virtualJoystick::draw(const e::renderable& r, const math::vec2& pos)
 	{
-		const glm::mat4 transform = glm::translate(glm::mat4(), glm::vec3(pos, 0.f));
+		const math::mat4 transform = math::translate(math::mat4(), math::vec3(pos.x, pos.y, 0.f));
 
 		// future optimization: bind the shader only once to avoid binding and unbinding the same shader
 		glBindBuffer(GL_ARRAY_BUFFER, r.vbo);
@@ -111,7 +111,7 @@ namespace input
 		r.shader->begin();
 		r.shader->uniform("model", transform);
 		r.shader->uniform("camera", m_projection);
-		r.shader->uniform("finalColor", glm::vec4(m_alpha.getValue()));
+		r.shader->uniform("finalColor", math::vec4(m_alpha.getValue()));
 		glDrawArrays(r.type, 0, r.numOfPolys);
 		r.shader->end();
 

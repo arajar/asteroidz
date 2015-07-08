@@ -35,11 +35,11 @@ namespace input
 
 	struct virtualJoystick
 	{
-		glm::vec2 m_position; // where the joystick is in the screen
-		glm::vec2 m_touchPosition; // where in the joystick are we touching
-		glm::vec2 m_oldPosition; // last touched position
-		glm::vec2 m_thumbPosition;
-		glm::vec2 m_delta;
+		math::vec2 m_position; // where the joystick is in the screen
+		math::vec2 m_touchPosition; // where in the joystick are we touching
+		math::vec2 m_oldPosition; // last touched position
+		math::vec2 m_thumbPosition;
+		math::vec2 m_delta;
 		float m_angle;
 
 		bool m_isTouching = false; // are we touching the joystick
@@ -51,9 +51,9 @@ namespace input
 		float m_scale = 1.f;
 		float m_acceleration = 0.f;
 
-		glm::vec2 m_velocity;
+		math::vec2 m_velocity;
 
-		glm::mat4 m_projection;
+		math::mat4 m_projection;
 		util::tweener<float> m_alpha;
 
 		virtualJoystick() : m_background(nullptr), m_thumb(nullptr) {}
@@ -64,7 +64,7 @@ namespace input
 		void update(float deltaTime);
 
 	private:
-		void draw(const e::renderable& r, const glm::vec2& pos);
+		void draw(const e::renderable& r, const math::vec2& pos);
 
 	protected:
 		e::renderable* m_background;

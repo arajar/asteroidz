@@ -16,9 +16,9 @@ namespace gfx
 		void enableBlending();
 		void disableBlending();
 
-		glm::vec2 getSize() const;
+		math::vec2 getSize() const;
 
 	protected:
-		glm::vec2 m_size;
+		math::vec2 m_size;
 	};
 }

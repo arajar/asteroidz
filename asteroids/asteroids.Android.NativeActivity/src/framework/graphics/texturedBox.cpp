@@ -50,7 +50,7 @@ namespace gfx
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 	}
 
-	void texturedBox::render(const glm::mat4& projection)
+	void texturedBox::render(const math::mat4& projection)
 	{
 		m_shader->begin();
 		m_texture->begin();
@@ -58,12 +58,22 @@ namespace gfx
 
 		m_shader->uniform("projection", projection);
 
-		glm::mat4 model = glm::translate(glm::mat4(), glm::vec3(1804, 1080, 1));
-		model *= glm::scale(glm::mat4(), glm::vec3(1804, 1080, 1.f));
-		model *= glm::scale(glm::mat4(), glm::vec3(-1));
+		math::mat4 model = math::translate(math::mat4(), math::vec3(1804, 1080, 1));
+		model *= math::scale(math::mat4(), math::vec3(1804, 1080, 1.f));
+		model *= math::scale(math::mat4(), math::vec3(-1));
+
+		glm::mat4 model1 = glm::translate(glm::mat4(), glm::vec3(1804, 1080, 1));
+		model1 *= glm::scale(glm::mat4(), glm::vec3(1804, 1080, 1.f));
+		model1 *= glm::scale(glm::mat4(), glm::vec3(-1));
+
+		auto aaa = math::toGl(model);
+		auto bbb = glm::value_ptr(model1);
+
+		auto aa1 = math::toGl(math::vec4(1.f, 1.f, 1.f, 1.f));
+		auto aa2 = glm::value_ptr(glm::vec4(1.f, 1.f, 1.f, 1.f));
 
 		m_shader->uniform("model", model);
-		m_shader->uniform("color", glm::vec4(1.f, 1.f, 1.f, 1.f));
+		m_shader->uniform("color", math::vec4(1.f, 1.f, 1.f, 1.f));
 
 		glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
 		glEnableVertexAttribArray(m_shader->attribute("vert"));

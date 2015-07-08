@@ -28,9 +28,6 @@ bool Game::init(struct android_app* state)
 		m_initialized = true;
 	}
 
-	glm::vec3 derp;
-	glm::cross(derp, derp);
-
 	return m_applicationState != nullptr;
 }
 
@@ -82,7 +79,7 @@ int Game::initDisplay()
 
 	if (eglMakeCurrent(m_display, m_surface, m_surface, m_context) == EGL_FALSE)
 	{
-		LOGW("Unable to eglMakeCurrent");
+		LOGW("Unable to emathakeCurrent");
 		return -1;
 	}
 
@@ -94,7 +91,7 @@ int Game::initDisplay()
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-	m_stateMgr->setState<stateMenu>(glm::vec2(m_width, m_height));
+	m_stateMgr->setState<stateMenu>(math::vec2(m_width, m_height));
 	return 0;
 }
 
@@ -224,7 +221,7 @@ int32_t Game::internalHandleInput(AInputEvent* event)
 
 	if (AKeyEvent_getKeyCode(event) == AKEYCODE_BACK)
 	{
-		m_stateMgr->setState<stateMenu>(glm::vec2(m_width, m_height));
+		m_stateMgr->setState<stateMenu>(math::vec2(m_width, m_height));
 
 		//backButtonPushed();
 		// Exit the game

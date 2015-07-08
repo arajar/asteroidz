@@ -75,7 +75,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="src\framework\math\func.inl" />
-    <None Include="src\framework\math\mat4.inl" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{416cd8f7-a18c-4b2e-bfca-f031cf581c15}</ProjectGuid>

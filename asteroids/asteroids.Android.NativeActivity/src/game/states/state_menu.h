@@ -4,7 +4,7 @@
 class stateMenu : public states::state
 {
 public:
-	stateMenu(const glm::vec2& screenSize) : m_screenSize(screenSize) {}
+	stateMenu(const math::vec2& screenSize) : m_screenSize(screenSize) {}
 
 public:
 	// Inherited via state
@@ -20,8 +20,8 @@ public:
 
 protected:
 	gfx::texturedBox	m_background;
-	glm::mat4			m_projection;
+	math::mat4			m_projection;
 
 private:
-	const glm::vec2		m_screenSize;
+	const math::vec2		m_screenSize;
 };

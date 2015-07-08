@@ -4,7 +4,7 @@
 class stateGameplay : public states::state
 {
 public:
-	stateGameplay(const glm::vec2& screenSize) : m_screenSize(screenSize) {}
+	stateGameplay(const math::vec2& screenSize) : m_screenSize(screenSize) {}
 
 public:
 	// Inherited via state
@@ -21,7 +21,7 @@ public:
 protected:
 	ecs::entity				m_ship;
 	const e::entityType*	m_shipType = nullptr;
-	glm::mat4				m_projection;
+	math::mat4				m_projection;
 
 	util::tweener<float>	m_timer;
 
@@ -30,5 +30,5 @@ protected:
 	gfx::texturedBox		background;
 private:
 	ecs::world				m_world;
-	const glm::vec2			m_screenSize;
+	const math::vec2		m_screenSize;
 };

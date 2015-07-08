@@ -83,24 +83,24 @@ namespace gfx
 		glUniform1f(uniform(name), v);
 	}
 
-	void shader::uniform(const char* name, const glm::vec2& v) const
+	void shader::uniform(const char* name, const math::vec2& v) const
 	{
-		glUniform2fv(uniform(name), 1, glm::value_ptr(v));
+		glUniform2fv(uniform(name), 1, math::toGl(v));
 	}
 
-	void shader::uniform(const char* name, const glm::vec3& v) const
+	void shader::uniform(const char* name, const math::vec3& v) const
 	{
-		glUniform3fv(uniform(name), 1, glm::value_ptr(v));
+		glUniform3fv(uniform(name), 1, math::toGl(v));
 	}
 
-	void shader::uniform(const char* name, const glm::vec4& v) const
+	void shader::uniform(const char* name, const math::vec4& v) const
 	{
-		glUniform4fv(uniform(name), 1, glm::value_ptr(v));
+		glUniform4fv(uniform(name), 1, math::toGl(v));
 	}
 
-	void shader::uniform(const char* name, const glm::mat4& m, bool transpose) const
+	void shader::uniform(const char* name, const math::mat4& m, bool transpose) const
 	{
-		glUniformMatrix4fv(uniform(name), 1, transpose, glm::value_ptr(m));
+		glUniformMatrix4fv(uniform(name), 1, transpose, math::toGl(m));
 	}
 
 	shader& shader::add(ShaderType type, const std::string& source)
