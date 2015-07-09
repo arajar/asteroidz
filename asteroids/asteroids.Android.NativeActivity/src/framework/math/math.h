@@ -1,9 +1,15 @@
 #pragma once
 
 #include <cmath>
-#include "../../glm/glm/glm.hpp"
-#include "../../glm/glm/gtc/matrix_transform.hpp"
-#include "../../glm/glm/gtc/type_ptr.hpp"
+
+// forward declarations
+namespace math
+{
+	template<typename T> struct vec2_type;
+	template<typename T> struct vec3_type;
+	template<typename T> struct vec4_type;
+	template<typename T> struct mat4_type;
+}
 
 #include "vec2.h"
 #include "vec3.h"

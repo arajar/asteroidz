@@ -63,15 +63,13 @@
     </AntPackage>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <Content Include="assets\bloom.ps.glsl" />
-    <Content Include="assets\bloom.vs.glsl" />
     <Content Include="assets\circle.ps.glsl" />
     <Content Include="assets\circle.vs.glsl" />
     <Content Include="assets\default.ps.glsl" />
     <Content Include="assets\default.vs.glsl" />
     <Content Include="assets\empty.txt" />
-    <Content Include="assets\game_background.bmp" />
     <Content Include="assets\menu_background.bmp" />
+    <Content Include="assets\game_background.bmp" />
     <Content Include="assets\particle.ps.glsl" />
     <Content Include="assets\particle.vs.glsl" />
     <Content Include="assets\particletexture.bmp" />

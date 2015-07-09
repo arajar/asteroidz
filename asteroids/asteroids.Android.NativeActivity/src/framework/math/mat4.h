@@ -7,20 +7,19 @@ namespace math
 	{
 		vec4_type<T> val[4];
 
-		mat4_type()
+		mat4_type() : mat4_type(1) {}
+
+		mat4_type(const T& s)
 		{
-			val[0] = vec4_type<T>(1, 0, 0, 0);
-			val[1] = vec4_type<T>(0, 1, 0, 0);
-			val[2] = vec4_type<T>(0, 0, 1, 0);
-			val[3] = vec4_type<T>(0, 0, 0, 1);
+			identity(s);
 		}
 
-		mat4_type(T s)
+		mat4_type(const mat4_type<T>& m)
 		{
-			val[0] = s;
-			val[1] = s;
-			val[2] = s;
-			val[3] = s;
+			val[0] = m[0];
+			val[1] = m[1];
+			val[2] = m[2];
+			val[3] = m[3];
 		}
 
 		mat4_type(const vec4_type<T>& r0, const vec4_type<T>& r1, const vec4_type<T>& r2, const vec4_type<T>& r3)
@@ -53,6 +52,14 @@ namespace math
 			return val[i];
 		}
 
+		void identity(T v = 1)
+		{
+			val[0] = vec4_type<T>(static_cast<T>(v), 0, 0, 0);
+			val[1] = vec4_type<T>(0, static_cast<T>(v), 0, 0);
+			val[2] = vec4_type<T>(0, 0, static_cast<T>(v), 0);
+			val[3] = vec4_type<T>(0, 0, 0, static_cast<T>(v));
+		}
+
 		mat4_type<T>& operator=(const mat4_type<T>& m)
 		{
 			val[0] = m[0];
@@ -82,12 +89,12 @@ namespace math
 
 		mat4_type<T>& operator*=(const mat4_type<T>& m)
 		{
-			return (*this = *this * m);
+			return *this = *this * m;
 		}
 
 		mat4_type<T>& operator/=(const mat4_type<T>& m)
 		{
-			return (*this = *this * inverse(m));
+			return *this = *this * inverse(m);
 		}
 	};
 

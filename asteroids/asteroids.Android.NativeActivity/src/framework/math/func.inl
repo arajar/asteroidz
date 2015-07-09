@@ -98,7 +98,7 @@ namespace math
 	template<typename T>
 	mat4_type<T> ortho(T left, T right, T bottom, T top, T near, T far)
 	{
-		mat4_type<T> res(static_cast<T>(0));
+		mat4_type<T> res(static_cast<T>(1));
 		res[0][0] = static_cast<T>(2) / (right - left);
 		res[1][1] = static_cast<T>(2) / (top - bottom);
 		res[2][2] = -static_cast<T>(2) / (far - near);
@@ -134,59 +134,59 @@ namespace math
 	template<typename T>
 	mat4_type<T> inverse(const mat4_type<T>& m)
 	{
-		T c00 = m[2][2] * m[3][3] - m[3][2] * m[2][3];
-		T c02 = m[1][2] * m[3][3] - m[3][2] * m[1][3];
-		T c03 = m[1][2] * m[2][3] - m[2][2] * m[1][3];
+		T Coef00 = m[2][2] * m[3][3] - m[3][2] * m[2][3];
+		T Coef02 = m[1][2] * m[3][3] - m[3][2] * m[1][3];
+		T Coef03 = m[1][2] * m[2][3] - m[2][2] * m[1][3];
 
-		T c04 = m[2][1] * m[3][3] - m[3][1] * m[2][3];
-		T c06 = m[1][1] * m[3][3] - m[3][1] * m[1][3];
-		T c07 = m[1][1] * m[2][3] - m[2][1] * m[1][3];
+		T Coef04 = m[2][1] * m[3][3] - m[3][1] * m[2][3];
+		T Coef06 = m[1][1] * m[3][3] - m[3][1] * m[1][3];
+		T Coef07 = m[1][1] * m[2][3] - m[2][1] * m[1][3];
 
-		T c08 = m[2][1] * m[3][2] - m[3][1] * m[2][2];
-		T c10 = m[1][1] * m[3][2] - m[3][1] * m[1][2];
-		T c11 = m[1][1] * m[2][2] - m[2][1] * m[1][2];
+		T Coef08 = m[2][1] * m[3][2] - m[3][1] * m[2][2];
+		T Coef10 = m[1][1] * m[3][2] - m[3][1] * m[1][2];
+		T Coef11 = m[1][1] * m[2][2] - m[2][1] * m[1][2];
 
-		T c12 = m[2][0] * m[3][3] - m[3][0] * m[2][3];
-		T c14 = m[1][0] * m[3][3] - m[3][0] * m[1][3];
-		T c15 = m[1][0] * m[2][3] - m[2][0] * m[1][3];
+		T Coef12 = m[2][0] * m[3][3] - m[3][0] * m[2][3];
+		T Coef14 = m[1][0] * m[3][3] - m[3][0] * m[1][3];
+		T Coef15 = m[1][0] * m[2][3] - m[2][0] * m[1][3];
 
-		T c16 = m[2][0] * m[3][2] - m[3][0] * m[2][2];
-		T c18 = m[1][0] * m[3][2] - m[3][0] * m[1][2];
-		T c19 = m[1][0] * m[2][2] - m[2][0] * m[1][2];
+		T Coef16 = m[2][0] * m[3][2] - m[3][0] * m[2][2];
+		T Coef18 = m[1][0] * m[3][2] - m[3][0] * m[1][2];
+		T Coef19 = m[1][0] * m[2][2] - m[2][0] * m[1][2];
 
-		T c20 = m[2][0] * m[3][1] - m[3][0] * m[2][1];
-		T c22 = m[1][0] * m[3][1] - m[3][0] * m[1][1];
-		T c23 = m[1][0] * m[2][1] - m[2][0] * m[1][1];
+		T Coef20 = m[2][0] * m[3][1] - m[3][0] * m[2][1];
+		T Coef22 = m[1][0] * m[3][1] - m[3][0] * m[1][1];
+		T Coef23 = m[1][0] * m[2][1] - m[2][0] * m[1][1];
 
-		vec4_type<T> f0(c00, c00, c02, c03);
-		vec4_type<T> f1(c04, c04, c06, c07);
-		vec4_type<T> f2(c08, c08, c10, c11);
-		vec4_type<T> f3(c12, c12, c14, c15);
-		vec4_type<T> f4(c16, c16, c18, c19);
-		vec4_type<T> f5(c20, c20, c22, c23);
+		vec4_type<T> Fac0(Coef00, Coef00, Coef02, Coef03);
+		vec4_type<T> Fac1(Coef04, Coef04, Coef06, Coef07);
+		vec4_type<T> Fac2(Coef08, Coef08, Coef10, Coef11);
+		vec4_type<T> Fac3(Coef12, Coef12, Coef14, Coef15);
+		vec4_type<T> Fac4(Coef16, Coef16, Coef18, Coef19);
+		vec4_type<T> Fac5(Coef20, Coef20, Coef22, Coef23);
 
-		vec4_type<T> v0(m[1][0], m[0][0], m[0][0], m[0][0]);
-		vec4_type<T> v1(m[1][1], m[0][1], m[0][1], m[0][1]);
-		vec4_type<T> v2(m[1][2], m[0][2], m[0][2], m[0][2]);
-		vec4_type<T> v3(m[1][3], m[0][3], m[0][3], m[0][3]);
+		vec4_type<T> Vec0(m[1][0], m[0][0], m[0][0], m[0][0]);
+		vec4_type<T> Vec1(m[1][1], m[0][1], m[0][1], m[0][1]);
+		vec4_type<T> Vec2(m[1][2], m[0][2], m[0][2], m[0][2]);
+		vec4_type<T> Vec3(m[1][3], m[0][3], m[0][3], m[0][3]);
 
-		vec4_type<T> inv0(v1 * f0 - v2 * f1 + v3 * f2);
-		vec4_type<T> inv1(v0 * f0 - v2 * f3 + v3 * f4);
-		vec4_type<T> inv2(v0 * f1 - v1 * f3 + v3 * f5);
-		vec4_type<T> inv3(v0 * f2 - v1 * f4 + v2 * f5);
+		vec4_type<T> Inv0(Vec1 * Fac0 - Vec2 * Fac1 + Vec3 * Fac2);
+		vec4_type<T> Inv1(Vec0 * Fac0 - Vec2 * Fac3 + Vec3 * Fac4);
+		vec4_type<T> Inv2(Vec0 * Fac1 - Vec1 * Fac3 + Vec3 * Fac5);
+		vec4_type<T> Inv3(Vec0 * Fac2 - Vec1 * Fac4 + Vec2 * Fac5);
 
-		vec4_type<T> signA(+1, -1, +1, -1);
-		vec4_type<T> signB(-1, +1, -1, +1);
-		mat4_type<T> inverse(inv0 * signA, inv1 * signB, inv2 * signA, inv3 * signB);
+		vec4_type<T> SignA(+1, -1, +1, -1);
+		vec4_type<T> SignB(-1, +1, -1, +1);
+		mat4_type<T> Inverse(Inv0 * SignA, Inv1 * SignB, Inv2 * SignA, Inv3 * SignB);
 
-		vec4_type<T> row0(inverse[0][0], inverse[1][0], inverse[2][0], inverse[3][0]);
+		vec4_type<T> Row0(Inverse[0][0], Inverse[1][0], Inverse[2][0], Inverse[3][0]);
 
-		vec4_type<T> dot0(m[0] * row0);
-		T dot1 = (dot0.x + dot0.y) + (dot0.z + dot0.w);
+		vec4_type<T> Dot0(m[0] * Row0);
+		T Dot1 = (Dot0.x + Dot0.y) + (Dot0.z + Dot0.w);
 
-		T oneOverDeterminant = static_cast<T>(1) / dot1;
+		T OneOverDeterminant = static_cast<T>(1) / Dot1;
 
-		return inverse * oneOverDeterminant;
+		return Inverse * OneOverDeterminant;
 	}
 
 	template<typename T>
