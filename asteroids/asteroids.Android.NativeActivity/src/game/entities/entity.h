@@ -51,6 +51,21 @@ namespace e
 		gfx::shader* shader;
 		GLuint numOfPolys;
 		GLuint type;
+
+		~renderable()
+		{
+			if (vbo != 0)
+			{
+				glDeleteBuffers(1, &vbo);
+				vbo = 0;
+			}
+
+			if (shader)
+			{
+				delete shader;
+				shader = nullptr;
+			}
+		}
 	};
 
 #if defined DEBUG_COLLISIONS
@@ -60,6 +75,21 @@ namespace e
 		gfx::shader* shader;
 		GLuint numOfPolys;
 		GLuint type;
+
+		~debugRenderable()
+		{
+			if (vbo != 0)
+			{
+				glDeleteBuffers(1, &vbo);
+				vbo = 0;
+			}
+
+			if (shader)
+			{
+				delete shader;
+				shader = nullptr;
+			}
+		}
 	};
 #endif
 

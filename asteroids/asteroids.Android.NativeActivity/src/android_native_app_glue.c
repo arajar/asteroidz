@@ -151,18 +151,6 @@ void android_app_post_exec_cmd(struct android_app* android_app, int8_t cmd)
 		pthread_cond_broadcast(&android_app->cond);
 		pthread_mutex_unlock(&android_app->mutex);
 		break;
-
-	case APP_CMD_SAVE_STATE:
-		LOGV("APP_CMD_SAVE_STATE\n");
-		pthread_mutex_lock(&android_app->mutex);
-		android_app->stateSaved = 1;
-		pthread_cond_broadcast(&android_app->cond);
-		pthread_mutex_unlock(&android_app->mutex);
-		break;
-
-	case APP_CMD_RESUME:
-		free_saved_state(android_app);
-		break;
 	}
 }
 
@@ -188,7 +176,6 @@ static void process_input(struct android_app* app, struct android_poll_source* s
 	AInputEvent* event = nullptr;
 	while (AInputQueue_getEvent(app->inputQueue, &event) >= 0)
 	{
-		LOGV("New input event: type=%d\n", AInputEvent_getType(event));
 		if (AInputQueue_preDispatchEvent(app->inputQueue, event))
 		{
 			continue;

@@ -4,7 +4,7 @@
 
 namespace e
 {
-	// Collision system
+	// spawn system
 	struct spawnSystem : public ecs::system
 	{
 		spawnSystem(ecs::world& world) : ecs::system(world) {}
@@ -39,6 +39,7 @@ namespace e
 						const auto pos = m_world.get<e::position>(en);
 						spawnAsteroidChunk(pos->pos);
 
+						// create an explosion with particles
 						for (int i = 0; i < 20; ++i)
 						{
 							float speed = 18.f * (1.f - 1 / rand(rng));
@@ -53,7 +54,7 @@ namespace e
 					}
 					else if (typ->type == EntityType::AsteroidChunk)
 					{
-						// if its a chunk, remove it directly without spawning anything
+						// if its a chunk, remove it directly without spawning new chunks
 						const auto pos = m_world.get<e::position>(en);
 
 						for (int i = 0; i < 20; ++i)
@@ -84,7 +85,7 @@ namespace e
 				}
 			}
 
-			// check there are at least the min number of asteroids spawned
+			// check that there are at least the min number of asteroids spawned
 			while (num < minAsteroids)
 			{
 				spawnAsteroid();

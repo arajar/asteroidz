@@ -67,9 +67,6 @@
     <ClInclude Include="src\framework\input\virtual_joystick.h">
       <Filter>framework\input</Filter>
     </ClInclude>
-    <ClInclude Include="src\framework\ecs.h">
-      <Filter>framework\ecs</Filter>
-    </ClInclude>
     <ClInclude Include="src\framework\math\vec4.h">
       <Filter>framework\math</Filter>
     </ClInclude>
@@ -147,6 +144,9 @@
     </ClInclude>
     <ClInclude Include="src\game\states\state_menu.h">
       <Filter>game\states</Filter>
+    </ClInclude>
+    <ClInclude Include="src\framework\ecs\ecs.h">
+      <Filter>framework\ecs</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -5,6 +5,21 @@
 
 namespace input
 {
+	virtualJoystick::~virtualJoystick()
+	{
+		if (m_background)
+		{
+			delete m_background;
+			m_background = nullptr;
+		}
+
+		if (m_thumb)
+		{
+			delete m_thumb;
+			m_thumb = nullptr;
+		}
+	}
+
 	void virtualJoystick::init(float radius)
 	{
 		m_radius = radius;
@@ -42,36 +57,12 @@ namespace input
 
 		m_isTouching = (m_radius >= distance) && ev.action != input::Action::Up;
 
-		m_oldPosition = m_touchPosition;
 		m_touchPosition = { ev.x, ev.y };
-
-		m_delta = m_touchPosition - m_oldPosition;
 
 		dx = std::sin(m_angle) * m_radius;
 		dy = std::cos(m_angle) * m_radius;
 
 		m_velocity = { dx / m_radius, dy / m_radius };
-
-		int mask = 0;
-		if (m_velocity.x > m_cuadrantSize)
-		{
-			mask = (int)Direction::LEFT;
-		}
-		else if (m_velocity.x < m_cuadrantSize)
-		{
-			mask = (int)Direction::RIGHT;
-		}
-
-		if (m_velocity.y < m_cuadrantSize)
-		{
-			mask &= (int)Direction::TOP;
-		}
-		else if (m_velocity.y > m_cuadrantSize)
-		{
-			mask &= (int)Direction::BOTTOM;
-		}
-
-		m_currentDirection = (Direction)mask;
 
 		m_thumbPosition = m_touchPosition;
 

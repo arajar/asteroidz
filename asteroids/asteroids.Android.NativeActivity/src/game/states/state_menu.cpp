@@ -36,6 +36,6 @@ void stateMenu::update(float deltaTime)
 
 void stateMenu::render()
 {
-	m_background.render(m_projection);
+	m_background.render(m_projection, m_screenSize);
 }
 

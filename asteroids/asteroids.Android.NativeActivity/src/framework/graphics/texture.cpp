@@ -2,9 +2,14 @@
 
 namespace gfx
 {
+	// helper class to load BMP files and create OpenGL textures
 	texture::~texture()
 	{
-		glDeleteTextures(1, &m_id);
+		if (m_id != 0)
+		{
+			glDeleteTextures(1, &m_id);
+			m_id = 0;
+		}
 	}
 
 	bool texture::load(const std::string& path)

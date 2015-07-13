@@ -16,7 +16,11 @@ namespace gfx
 			m_shader = nullptr;
 		}
 
-		glDeleteBuffers(1, &m_vbo);
+		if (m_vbo != 0)
+		{
+			glDeleteBuffers(1, &m_vbo);
+			m_vbo = 0;
+		}
 	}
 
 	void texturedBox::init(const std::string& name)
@@ -50,7 +54,7 @@ namespace gfx
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 	}
 
-	void texturedBox::render(const math::mat4& projection)
+	void texturedBox::render(const math::mat4& projection, const math::vec2& size)
 	{
 		m_shader->begin();
 		m_texture->begin();
@@ -58,8 +62,8 @@ namespace gfx
 
 		m_shader->uniform("projection", projection);
 
-		math::mat4 model = math::translate(math::mat4(), math::vec3(1804, 1080, -0.2));
-		model *= math::scale(math::mat4(), math::vec3(1804, 1080, 1.f));
+		math::mat4 model = math::translate(math::mat4(), math::vec3(size.x, size.y, -0.2));
+		model *= math::scale(math::mat4(), math::vec3(size.x, size.y, 1.f));
 		model *= math::scale(math::mat4(), math::vec3(-1));
 
 		m_shader->uniform("model", model);

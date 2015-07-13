@@ -5,7 +5,7 @@
 namespace e
 {
 	// Movement system
-	// Modifies the position of the entity by taking the angle, acceleration and delta time
+	// Modifies the position of the entity by taking the direction, acceleration and delta time
 	struct movementSystem : public ecs::system
 	{
 		math::vec2 m_size;

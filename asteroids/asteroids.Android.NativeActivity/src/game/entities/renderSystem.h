@@ -17,6 +17,9 @@ namespace e
 
 		void operator()() const
 		{
+			// future optimization:
+			// - sort the entities by shader and bind the shader only once
+			// - create a batching system to batch render all the entities
 			math::mat4 projection = math::ortho(0.0f, m_size.x, m_size.y, 0.0f, -1.f, 1000.f);
 			projection *= math::translate(math::mat4(), math::vec3(0, 0, -100));
 

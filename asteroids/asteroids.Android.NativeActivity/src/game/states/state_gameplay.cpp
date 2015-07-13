@@ -121,15 +121,19 @@ void stateGameplay::update(float deltaTime)
 	m_leftJoy.update(deltaTime);
 	m_rightJoy.update(deltaTime);
 	ps::manager::update();
+	
+	// if the player's ship is still alive, update the entity component system
 	if (m_shipType->alive)
 	{
 		m_world(deltaTime);
 	}
 	else
 	{
+		// if the player just died, wait a moment while the particles are still moving
 		m_timer.update(deltaTime);
 		if (m_timer.hasFinished())
 		{
+			// then, go to the main menu
 			Game::getInstance()->getStateManager()->setState<stateMenu>(m_screenSize);
 		}
 	}
@@ -137,7 +141,9 @@ void stateGameplay::update(float deltaTime)
 
 void stateGameplay::render()
 {
-	background.render(m_projection);
+	background.render(m_projection, m_screenSize);
+
+	// if the ship is alive, render all the entities
 	if (m_shipType->alive)
 	{
 		m_world();

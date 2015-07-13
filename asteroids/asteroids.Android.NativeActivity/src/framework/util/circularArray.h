@@ -2,6 +2,7 @@
 
 namespace util
 {
+	// super small circular array implementation
 	template<typename T>
 	class circularArray
 	{

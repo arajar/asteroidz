@@ -1,7 +1,13 @@
 #pragma once
 
 ///////////////////////////////////////////////////////////////////////////////
-// Singleton implementation
+// Singleton custom implementation
+//
+// I don't like the typical singleton implementations where a get() creates 
+// an instance, you never know when the object will be created and you lose control
+// over it's lifetime.
+// With this implementation the user is forced to "new" the singleton and also
+// has the ability to destroy it at any time.
 
 template <class T>
 class Singleton

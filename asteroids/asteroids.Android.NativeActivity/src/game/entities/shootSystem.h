@@ -28,6 +28,7 @@ namespace e
 				const auto p = m_world.get<position>(en);
 
 				// update the missiles
+				// first checks if any missile needs to be removed
 				for (auto it = m->missiles.begin(); it != m->missiles.end(); )
 				{
 					auto& missile = (*it);
@@ -42,6 +43,7 @@ namespace e
 					}
 				}
 
+				// then checks if we can shoot a new missile
 				if (m_joy->m_isTouching && m_timeSinceLastShoot >= m_timeToShoot)
 				{
 					shoot(m, p->pos, m_joy->m_angle);

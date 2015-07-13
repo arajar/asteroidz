@@ -7,8 +7,10 @@
 
 //////////////////////////////////////////////////////////////////////////
 
+// Our entry point to the application
 void android_main(struct android_app* state)
 {
+	// create the game singleton
 	new Game("asteroids");
 
 	state->userData = Game::getInstance();
@@ -22,6 +24,8 @@ void android_main(struct android_app* state)
 	{
 		Game::getInstance()->run();
 	}
+
+	Game::destroy();
 }
 
 //////////////////////////////////////////////////////////////////////////

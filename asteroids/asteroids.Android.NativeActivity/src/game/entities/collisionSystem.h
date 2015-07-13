@@ -92,6 +92,7 @@ namespace e
 							collidedEntities.push_back(e1);
 						}
 
+						// uncomment this line to make the player immortal, useful to debug
 						//if (et2->type != EntityType::Player)
 						{
 							c2->collided = true;

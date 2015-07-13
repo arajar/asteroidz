@@ -4,6 +4,8 @@ typedef std::function<float(float)> InterpolationFunction;
 
 namespace util
 {
+	// A c++11 tweener class
+	// interpolates values over time with a custom interpolation function
 	template<typename InterpType>
 	class tweener
 	{
