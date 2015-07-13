@@ -2,11 +2,15 @@
 
 namespace util
 {
+	//////////////////////////////////////////////////////////////////////////
+	
 	void setAssetMgr(AAssetManager * mgr)
 	{
 		fs::assetMgr = mgr;
 	}
 
+	//////////////////////////////////////////////////////////////////////////
+	
 	int android_read(void* cookie, char* buf, int size)
 	{
 		return AAsset_read((AAsset*)cookie, buf, size);

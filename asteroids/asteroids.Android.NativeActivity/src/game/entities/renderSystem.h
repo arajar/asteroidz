@@ -25,15 +25,15 @@ namespace e
 
 			for (auto& en : m_world.search<position, renderable>())
 			{
-				const auto p = m_world.get<position>(en);
-				const auto r = m_world.get<renderable>(en);
+				const auto& p = m_world.get<position>(en);
+				const auto& r = m_world.get<renderable>(en);
 
 				// take the current position and direction (angle) and create a transformation matrix
 				math::mat4 transform = math::translate(math::mat4(), math::vec3(p->pos.x, p->pos.y, 0.f));
 				transform *= math::scale(math::mat4(), math::vec3(-1));
 
-				const auto localRot = m_world.get<localRotation>(en);
-				const auto dir = m_world.get<direction>(en);
+				const auto& localRot = m_world.get<localRotation>(en);
+				const auto& dir = m_world.get<direction>(en);
 				if (localRot)
 				{
 					// if the entity has a local rotation matrix, apply the rotation
@@ -70,8 +70,8 @@ namespace e
 			// render the missiles
 			for (auto& en : m_world.search<missileArray>())
 			{
-				const auto m = m_world.get<missileArray>(en);
-				const auto r = m->ren;
+				const auto& m = m_world.get<missileArray>(en);
+				const auto& r = m->ren;
 
 				glBindBuffer(GL_ARRAY_BUFFER, r.vbo);
 

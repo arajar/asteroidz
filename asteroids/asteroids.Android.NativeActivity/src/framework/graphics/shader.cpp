@@ -46,7 +46,7 @@ namespace gfx
 			glGetProgramInfoLog(m_object, sizeof(buffer), &len, buffer);
 			if (len)
 			{
-				//int a = 42343;
+				LOGW("Shader error: %s", buffer);
 			}
 		}
 		return linked == GL_TRUE;
@@ -149,11 +149,10 @@ namespace gfx
 			glGetShaderInfoLog(shader, sizeof(buffer), &len, buffer);
 			if (len)
 			{
-				//int a = 5433;
+				LOGW("Shader error: %s", buffer);
 			}
 		}
 
-		// HANDLE ERROR OR SOMETHING
 		return *this;
 	}
 }
